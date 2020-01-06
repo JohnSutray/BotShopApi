@@ -1,0 +1,14 @@
+﻿POST localhost:5000/product
+Content-Type: application/json
+
+{
+  "name": "product1",
+  "description": "description1",
+  "price": 1,
+  "displayType": "Image",
+  "mediaUrl": "mediaUrl1",
+  "category": "category1",
+  "type": "type1"
+}
+
+###
