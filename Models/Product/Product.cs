@@ -5,7 +5,6 @@ using Newtonsoft.Json.Converters;
 
 namespace ImportShopBot.Models.Product
 {
-    // TODO: move messages to constants
     public class Product
     {
         public int Id { get; set; }
@@ -39,10 +38,6 @@ namespace ImportShopBot.Models.Product
         [MaxLength(1000)]
         public string MediaUrl { get; set; }
 
-        [Required]
-        [JsonConverter(typeof(StringEnumConverter))]
-        public EDisplayType DisplayType { get; set; }
-        
         [Required]
         [Range(1, int.MaxValue)]
         public int OwnerId { get; set; }

@@ -1,35 +1,36 @@
 ﻿using System.Threading.Tasks;
 using ImportShopBot.Contexts;
 using ImportShopBot.Models;
+using ImportShopBot.Models.Account;
 using Microsoft.EntityFrameworkCore;
 
 namespace ImportShopBot.Services
 {
     public class AccountService
     {
-        private BotAccountContext BotAccountContext { get; }
+        private AccountContext AccountContext { get; }
 
-        public AccountService(BotAccountContext botAccountContext) => BotAccountContext = botAccountContext;
+        public AccountService(AccountContext accountContext) => AccountContext = accountContext;
 
         public async Task<bool> IsCommonAccountExists(string telegramToken)
             => await FindByToken(telegramToken) != null;
 
-        public async Task<BotAccount> FindByToken(string telegramToken)
-            => await BotAccountContext.BotAccounts
+        public async Task<Account> FindByToken(string telegramToken)
+            => await AccountContext.Accounts
                 .FirstOrDefaultAsync(account => account.TelegramToken == telegramToken);
 
         public async Task CreateBotAccount(string telegramToken)
         {
-            var botAccount = new BotAccount {TelegramToken = telegramToken};
-            await BotAccountContext.AddAsync(botAccount);
-            await BotAccountContext.SaveChangesAsync();
+            var botAccount = new Account {TelegramToken = telegramToken};
+            await AccountContext.AddAsync(botAccount);
+            await AccountContext.SaveChangesAsync();
         }
 
-        public async Task RemoveBotAccount(int ownerId)
+        public async Task RemoveAccount(int ownerId)
         {
-            var accountToRemove = await BotAccountContext.BotAccounts.FirstAsync(a => a.Id == ownerId);
-            BotAccountContext.Remove(accountToRemove);
-            await BotAccountContext.SaveChangesAsync();
+            var accountToRemove = await AccountContext.Accounts.FirstAsync(a => a.Id == ownerId);
+            AccountContext.Remove(accountToRemove);
+            await AccountContext.SaveChangesAsync();
         }
     }
 }

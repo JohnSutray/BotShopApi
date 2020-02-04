@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Amazon.S3;
 using Amazon.S3.Model;
 using ImportShopBot.Extensions;
+using ImportShopBot.Extensions.String;
 using Microsoft.AspNetCore.Http;
 
 namespace ImportShopBot.Services

@@ -1,5 +1,4 @@
-﻿using ImportShopBot.Models;
-using ImportShopBot.Models.Product;
+﻿using ImportShopBot.Models.Product;
 using Microsoft.EntityFrameworkCore;
 
 namespace ImportShopBot.Contexts

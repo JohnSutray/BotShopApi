@@ -1,18 +1,15 @@
 using System;
-using Amazon;
-using Amazon.Extensions.NETCore.Setup;
-using Amazon.Runtime;
 using Amazon.S3;
 using ImportShopBot.Contexts;
+using ImportShopBot.Extensions;
+using ImportShopBot.Extensions.Configuration;
 using ImportShopBot.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace ImportShopBot
 {
@@ -23,57 +20,65 @@ namespace ImportShopBot
         private IConfiguration Configuration { get; }
         private string ConnectionString => Configuration.GetConnectionString("DefaultConnection");
 
-        private BasicAWSCredentials AwsCredentials => new BasicAWSCredentials(
-            Environment.GetEnvironmentVariable("AWS_ACCESS_KEY_ID"),
-            Environment.GetEnvironmentVariable("AWS_SECRET_ACCESS_KEY")
-        );
-
-        private AWSOptions AwsOptions => new AWSOptions
-        {
-            Region = RegionEndpoint.EUNorth1,
-            Credentials = AwsCredentials
-        };
+        private void ConfigureCors(CorsPolicyBuilder builder) => builder
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
 
         private void ConfigureDbContext(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseSqlServer(ConnectionString);
 
-        private void ConfigureCookies(CookieAuthenticationOptions options)
-            => options.LoginPath = new PathString("/auth/sign-in");
+        private void ConfigureJwt(JwtBearerOptions options)
+        {
+            options.RequireHttpsMetadata = false;
+            options.TokenValidationParameters = Configuration.GetTokenValidationParameters();
+        }
 
-        private void ConfigureDatabaseContexts(IServiceCollection services) => services
+        private void ConfigureContexts(IServiceCollection services) => services
             .AddDbContext<ProductContext>(ConfigureDbContext)
-            .AddDbContext<BotAccountContext>(ConfigureDbContext);
+            .AddDbContext<AccountContext>(ConfigureDbContext)
+            .AddDbContext<TmUserContext>(ConfigureDbContext);
 
-        private void ConfigureApplication(IServiceCollection services) => services
+        private void ConfigureAspServices(IServiceCollection services) => services
             .AddControllers()
             .Services
-            .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(ConfigureCookies);
+            .AddCors()
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(ConfigureJwt);
 
         public void ConfigureServices(IServiceCollection services)
         {
-            ConfigureDatabaseContexts(services);
-            ConfigureApplication(services);
+            ConfigureContexts(services);
+            ConfigureAspServices(services);
             ConfigureCustomServices(services);
+            ConfigureTelegramServices(services);
         }
 
-        private void ConfigureCustomServices(IServiceCollection services)
-        {
-            services.AddTransient<ProductService>()
-                .AddTransient<AccountService>()
-                .AddAWSService<IAmazonS3>()
-                .AddTransient<MediaStorageService>()
-                .AddDefaultAWSOptions(AwsOptions);
-        }
+        private void ConfigureCustomServices(IServiceCollection services) => services
+            .AddTransient<ProductService>()
+            .AddTransient<AccountService>()
+            .AddTransient<MediaStorageService>()
+            .AddAWSService<IAmazonS3>()
+            .AddDefaultAWSOptions(Configuration.GetAwsOptionsFromAppSettings());
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider provider)
-        {
-            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
+        private void ConfigureTelegramServices(IServiceCollection services) => services
+            .AddTransient<TmProductService>()
+            .AddTransient<TmUserService>()
+            .AddTransient<TmAccountService>()
+            .AddTransient<TmApiService>()
+            .AddSingleton<TmBotManagerService>();
 
-            app.UseRouting()
+        public void Configure(IApplicationBuilder app, IServiceProvider services)
+        {
+            app.UseCors(ConfigureCors)
+                .UseDeveloperExceptionPage()
+                .UseJsonExceptionHandler()
+                .UseRouting()
                 .UseAuthentication()
                 .UseAuthorization()
                 .UseEndpoints(e => e.MapControllers());
+
+            services.GetRequiredService<TmBotManagerService>().UpdateBots();
         }
     }
 }

@@ -2,7 +2,6 @@
 using ImportShopBot.Constants;
 using Microsoft.AspNetCore.Http;
 
-
 namespace ImportShopBot.Models.Product
 {
     public class UpdateProductDto

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using ImportShopBot.Contexts;
 using ImportShopBot.Extensions;
+using ImportShopBot.Extensions.String;
 using ImportShopBot.Models.Product;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,7 +36,6 @@ namespace ImportShopBot.Services
                 Category = productDto.Category,
                 Price = productDto.Price,
                 Type = productDto.Type,
-                DisplayType = productDto.Media.FileName.GetDisplayType(),
                 OwnerId = ownerId,
                 MediaUrl = await MediaStorageService.UploadMedia(productDto.Media, ownerId),
             };
