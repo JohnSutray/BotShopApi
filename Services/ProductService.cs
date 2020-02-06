@@ -6,18 +6,15 @@ using ImportShopApi.Extensions;
 using ImportShopApi.Extensions.String;
 using Microsoft.EntityFrameworkCore;
 
-namespace ImportShopApi.Services
-{
-  public class ProductService
-  {
+namespace ImportShopApi.Services {
+  public class ProductService {
     private ProductContext ProductContext { get; }
     private MediaStorageService MediaStorageService { get; }
 
     public ProductService(
       ProductContext productContext,
       MediaStorageService mediaStorageService
-    )
-    {
+    ) {
       ProductContext = productContext;
       MediaStorageService = mediaStorageService;
     }
@@ -27,10 +24,8 @@ namespace ImportShopApi.Services
     public async Task<bool> IsValidName(string name, int ownerId)
       => !await Products.AnyAsync(p => p.Name == name && p.OwnerId == ownerId);
 
-    public async Task CreateProduct(CreateProductDto productDto, int ownerId)
-    {
-      var product = new Product
-      {
+    public async Task CreateProduct(CreateProductDto productDto, int ownerId) {
+      var product = new Product {
         Name = productDto.Name,
         Description = productDto.Description,
         Category = productDto.Category,
@@ -43,8 +38,7 @@ namespace ImportShopApi.Services
       await ProductContext.SaveChangesAsync();
     }
 
-    public async Task<bool> RemoveProduct(int id, int ownerId)
-    {
+    public async Task<bool> RemoveProduct(int id, int ownerId) {
       var productToRemove = await FindProductById(id, ownerId);
 
       if (productToRemove == null) return false;
@@ -56,8 +50,7 @@ namespace ImportShopApi.Services
       return true;
     }
 
-    public async Task<bool> UpdateProduct(int id, int ownerId, UpdateProductDto updateProductDto)
-    {
+    public async Task<bool> UpdateProduct(int id, int ownerId, UpdateProductDto updateProductDto) {
       var productToUpdate = await FindProductById(id, ownerId);
 
       if (productToUpdate == null) return false;
@@ -68,8 +61,7 @@ namespace ImportShopApi.Services
       productToUpdate.Category = updateProductDto.Category ?? productToUpdate.Category;
       productToUpdate.Type = updateProductDto.Type ?? productToUpdate.Type;
 
-      if (updateProductDto.Media != null)
-      {
+      if (updateProductDto.Media != null) {
         await MediaStorageService.RemoveMedia(productToUpdate.MediaUrl);
         productToUpdate.MediaUrl = await MediaStorageService.UploadMedia(updateProductDto.Media, ownerId);
       }
@@ -79,8 +71,7 @@ namespace ImportShopApi.Services
       return true;
     }
 
-    public async Task RemoveAllOwnerProducts(int ownerId)
-    {
+    public async Task RemoveAllOwnerProducts(int ownerId) {
       var productsToDelete = Products.Where(p => p.OwnerId == ownerId);
       ProductContext.RemoveRange();
       await ProductContext.SaveChangesAsync();

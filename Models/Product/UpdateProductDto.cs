@@ -2,10 +2,8 @@
 using ImportShopApi.Constants;
 using Microsoft.AspNetCore.Http;
 
-namespace ImportShopApi.Models.Product
-{
-  public class UpdateProductDto
-  {
+namespace ImportShopApi.Models.Product {
+  public class UpdateProductDto {
     [Range(1, 1000, ErrorMessage = ValidationMessages.Price + ValidationMessages.Range)]
     public int? Price { get; set; }
 

@@ -9,13 +9,10 @@ using ImportShopApi.Extensions.Enumerable;
 using ImportShopApi.Extensions.TelegramContext;
 using ImportShopApi.Models.Telegram;
 
-namespace ImportShopApi.Controllers.Telegram
-{
-  public class TelegramProductController
-  {
+namespace ImportShopApi.Controllers.Telegram {
+  public class TelegramProductController {
     [TmMessageHandler(TmLabelsConstants.Catalog)]
-    public async Task<bool> CategoryList(TmMessageContext context)
-    {
+    public async Task<bool> CategoryList(TmMessageContext context) {
       var categoryList = context.ProductService
         .Products
         .AsEnumerable()
@@ -36,8 +33,7 @@ namespace ImportShopApi.Controllers.Telegram
     }
 
     [TmMessageHandler]
-    public async Task<bool> TypeList(TmMessageContext context)
-    {
+    public async Task<bool> TypeList(TmMessageContext context) {
       var user = await context.GetUserAsync();
 
       if (user.ChatState != EChatState.CategoryList || !await context.MessageIsCategory())
@@ -65,8 +61,7 @@ namespace ImportShopApi.Controllers.Telegram
     }
 
     [TmMessageHandler]
-    public async Task<bool> ToProductList(TmMessageContext context)
-    {
+    public async Task<bool> ToProductList(TmMessageContext context) {
       var user = await context.GetUserAsync();
 
       if (user.ChatState != EChatState.TypeList || !await context.MessageIsProductType())
@@ -94,8 +89,7 @@ namespace ImportShopApi.Controllers.Telegram
       + TmLabelsConstants.Page
       + "\\)"
     )]
-    public async Task<bool> PaginateProducts(TmMessageContext context)
-    {
+    public async Task<bool> PaginateProducts(TmMessageContext context) {
       var user = await context.GetUserAsync();
 
       Console.WriteLine(context.Message.Text);

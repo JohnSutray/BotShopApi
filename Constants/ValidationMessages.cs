@@ -1,7 +1,5 @@
-﻿namespace ImportShopApi.Constants
-{
-  public static class ValidationMessages
-  {
+﻿namespace ImportShopApi.Constants {
+  public static class ValidationMessages {
     public const string RequiredField = ": обязательное для заполнения поле";
     public const string MinLength = ": минимальная длина - {1}";
     public const string MaxLength = ": максимальная длина - {1}";

@@ -11,12 +11,9 @@ using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 
-namespace ImportShopApi.Models.Telegram
-{
-  public class TmBotInstance
-  {
-    public TmBotInstance(Account.Account account, IServiceScopeFactory scopeFactory)
-    {
+namespace ImportShopApi.Models.Telegram {
+  public class TmBotInstance {
+    public TmBotInstance(Account.Account account, IServiceScopeFactory scopeFactory) {
       Account = account;
       ScopeFactory = scopeFactory;
       RootScope = scopeFactory.CreateScope();
@@ -33,22 +30,19 @@ namespace ImportShopApi.Models.Telegram
     private async void HandleMessage(object sender, MessageEventArgs args) => await RootMessageHandler(args);
     private async void HandleQuery(object sender, CallbackQueryEventArgs args) => await RootQueryHandler(args);
 
-    public void Start()
-    {
+    public void Start() {
       BotClient = new TelegramBotClient(Account.TelegramToken);
       BotClient.OnMessage += HandleMessage;
       BotClient.OnCallbackQuery += HandleQuery;
       BotClient.StartReceiving();
     }
 
-    public void Stop()
-    {
+    public void Stop() {
       BotClient.StopReceiving();
       RootScope.Dispose();
     }
 
-    public TmBotInstance AddController<T>() where T : new()
-    {
+    public TmBotInstance AddController<T>() where T : new() {
       var controllerInstance = new T();
 
       MessageHandlers = controllerInstance
@@ -64,8 +58,7 @@ namespace ImportShopApi.Models.Telegram
       return this;
     }
 
-    private async Task RootMessageHandler(MessageEventArgs messageArgs)
-    {
+    private async Task RootMessageHandler(MessageEventArgs messageArgs) {
       using var scope = ScopeFactory.CreateScope();
       var productService = scope.ServiceProvider.GetRequiredService<TmProductService>();
       var userService = scope.ServiceProvider.GetRequiredService<TmUserService>();
@@ -79,8 +72,7 @@ namespace ImportShopApi.Models.Telegram
       );
     }
 
-    private async Task RootQueryHandler(CallbackQueryEventArgs queryEventArgs)
-    {
+    private async Task RootQueryHandler(CallbackQueryEventArgs queryEventArgs) {
       using var scope = ScopeFactory.CreateScope();
       var productService = scope.ServiceProvider.GetRequiredService<TmProductService>();
       var userService = scope.ServiceProvider.GetRequiredService<TmUserService>();
@@ -103,8 +95,7 @@ namespace ImportShopApi.Models.Telegram
       TContext context,
       IEnumerable<TmHandlerContainer<TContext>> handlers,
       string content
-    ) where TContext : TmContext
-    {
+    ) where TContext : TmContext {
       foreach (var handler in handlers)
         if (handler.HandleBy.IsMatch(content) && await handler.Handler(context))
           return;

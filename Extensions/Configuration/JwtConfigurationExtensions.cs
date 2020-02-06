@@ -4,10 +4,8 @@ using ImportShopApi.Extensions.String;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ImportShopApi.Extensions.Configuration
-{
-  public static partial class ConfigurationExtensions
-  {
+namespace ImportShopApi.Extensions.Configuration {
+  public static partial class ConfigurationExtensions {
     private static IConfigurationSection GetAuthorizeSection(this IConfiguration configuration) =>
       configuration.GetSectionByName("Authorization");
 
@@ -38,8 +36,7 @@ namespace ImportShopApi.Extensions.Configuration
       );
 
     public static TokenValidationParameters GetTokenValidationParameters(this IConfiguration configuration) =>
-      new TokenValidationParameters
-      {
+      new TokenValidationParameters {
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = true,

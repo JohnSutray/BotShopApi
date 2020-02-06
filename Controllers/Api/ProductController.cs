@@ -9,10 +9,8 @@ using ImportShopApi.Extensions.Enumerable;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ImportShopApi.Controllers.Api
-{
-  public static class ProductQueryableExtensions
-  {
+namespace ImportShopApi.Controllers.Api {
+  public static class ProductQueryableExtensions {
     public static IEnumerable<Category> GetCategories(this IQueryable<Product> products, int userId) =>
       products.Where(p => p.OwnerId == userId)
         .AsEnumerable()
@@ -20,8 +18,7 @@ namespace ImportShopApi.Controllers.Api
         .Select(products.GetCategoryWithTypes);
 
     private static Category GetCategoryWithTypes(this IQueryable<Product> products, string category) =>
-      new Category
-      {
+      new Category {
         Name = category,
         Types = products.Where(p => p.Category == category)
           .AsEnumerable()
@@ -32,15 +29,13 @@ namespace ImportShopApi.Controllers.Api
   [Authorize]
   [ApiController]
   [Route("product")]
-  public class ProductController : Controller
-  {
+  public class ProductController : Controller {
     private ProductService ProductService { get; }
 
     public ProductController(ProductService productService) => ProductService = productService;
 
     [HttpPut]
-    public async Task<ActionResult> Create([FromForm] CreateProductDto productDto)
-    {
+    public async Task<ActionResult> Create([FromForm] CreateProductDto productDto) {
       if (!ModelState.IsValid)
         return BadRequest(ModelState);
 
@@ -52,8 +47,7 @@ namespace ImportShopApi.Controllers.Api
     }
 
     [HttpPost("{id}")]
-    public async Task<ActionResult> UpdateProduct(int id, [FromForm] UpdateProductDto updateProductDto)
-    {
+    public async Task<ActionResult> UpdateProduct(int id, [FromForm] UpdateProductDto updateProductDto) {
       if (!ModelState.IsValid)
         return UnprocessableEntity(ModelState);
 
@@ -69,7 +63,8 @@ namespace ImportShopApi.Controllers.Api
       : this.AddModelError("Указанного продукта не существует").UnprocessableModel();
 
     [HttpGet("{category}/{type}/{page}/{limit}")]
-    public PaginateResult<Product> GetProducts(string category, string type, int page, int limit) =>
+    public PaginateResult<Product> GetProducts(string category, string type, int page,
+      int limit) =>
       ProductService
         .Products
         .Where(p => p.Category == category && p.Type == type && p.OwnerId == User.GetUserId())

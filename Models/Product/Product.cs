@@ -3,10 +3,8 @@ using ImportShopApi.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace ImportShopApi.Models.Product
-{
-  public class Product
-  {
+namespace ImportShopApi.Models.Product {
+  public class Product {
     public int Id { get; set; }
 
     [Required] [Range(1, 1000)] public int Price { get; set; }

@@ -6,12 +6,9 @@ using ImportShopApi.Models.Account;
 using ImportShopApi.Models.Telegram;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ImportShopApi.Services
-{
-  public class TmBotManagerService
-  {
-    public TmBotManagerService(IServiceScopeFactory serviceScopeFactory)
-    {
+namespace ImportShopApi.Services {
+  public class TmBotManagerService {
+    public TmBotManagerService(IServiceScopeFactory serviceScopeFactory) {
       ScopeFactory = serviceScopeFactory;
       RootScope = serviceScopeFactory.CreateScope();
       AccountService = RootScope.ServiceProvider.GetRequiredService<TmAccountService>();
@@ -22,8 +19,7 @@ namespace ImportShopApi.Services
     private IServiceScopeFactory ScopeFactory { get; }
     private List<TmBotInstance> TmBotInstances { get; } = new List<TmBotInstance>();
 
-    public void UpdateBots()
-    {
+    public void UpdateBots() {
       var activeAccounts = TmBotInstances.Select(
         bot => AccountService.Accounts.First(account => account.Id == bot.Account.Id)
       );
@@ -34,8 +30,7 @@ namespace ImportShopApi.Services
       accountsToKill.ToList().ForEach(KillBot);
     }
 
-    private void BootstrapBot(Account account)
-    {
+    private void BootstrapBot(Account account) {
       var bot = new TmBotInstance(account, ScopeFactory);
       bot.AddController<TelegramProductController>();
       bot.Start();

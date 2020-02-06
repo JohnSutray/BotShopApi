@@ -6,12 +6,10 @@ using ImportShopApi.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
-namespace ImportShopApi.Controllers.Api
-{
+namespace ImportShopApi.Controllers.Api {
   [ApiController]
   [Route("auth")]
-  public class AuthenticateController : Controller
-  {
+  public class AuthenticateController : Controller {
     private AccountService AccountService { get; }
     private IConfiguration Configuration { get; }
     private TmApiService TmApiService { get; }
@@ -20,16 +18,14 @@ namespace ImportShopApi.Controllers.Api
       AccountService accountService,
       TmApiService tmApiService,
       IConfiguration configuration
-    )
-    {
+    ) {
       AccountService = accountService;
       Configuration = configuration;
       TmApiService = tmApiService;
     }
 
     [HttpPost]
-    public async Task<IActionResult> SignIn(AccountLogin accountLogin)
-    {
+    public async Task<IActionResult> SignIn(AccountLogin accountLogin) {
       if (!ModelState.IsValid) return this.UnprocessableModel();
 
       var account = await AccountService.FindByToken(accountLogin.TelegramToken);
@@ -40,8 +36,7 @@ namespace ImportShopApi.Controllers.Api
 
       var botInfo = await TmApiService.GetMe(account.TelegramToken);
 
-      return Ok(new
-      {
+      return Ok(new {
         Token = account.GetJwt(Configuration),
         Name = botInfo.Username
       });

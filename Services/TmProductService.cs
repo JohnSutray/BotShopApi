@@ -2,10 +2,8 @@
 using ImportShopApi.Contexts;
 using ImportShopApi.Models.Product;
 
-namespace ImportShopApi.Services
-{
-  public class TmProductService
-  {
+namespace ImportShopApi.Services {
+  public class TmProductService {
     private ProductContext ProductContext { get; }
     public int AccountId { private get; set; }
 

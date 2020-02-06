@@ -10,10 +10,8 @@ using ImportShopApi.Extensions.Int;
 using ImportShopApi.Extensions.String;
 using Microsoft.EntityFrameworkCore;
 
-namespace ImportShopApi.Extensions.TelegramContext
-{
-  public static class TmMessageContextExtensions
-  {
+namespace ImportShopApi.Extensions.TelegramContext {
+  public static class TmMessageContextExtensions {
     private const string PageGroup = "pageGroup";
     private const int ProductPageLimit = 3;
 
@@ -25,8 +23,7 @@ namespace ImportShopApi.Extensions.TelegramContext
     public static async Task<TmUser> GetUserAsync(this TmMessageContext context) =>
       await context.UserService.GetUserByTmId(context.GetUserTmId());
 
-    public static async Task PaginateProductList(this TmMessageContext context, int page)
-    {
+    public static async Task PaginateProductList(this TmMessageContext context, int page) {
       var user = await context.GetUserAsync();
       var productPage = context.ProductService.Products
         .Where(product => product.Category == user.LastSelectedCategory && product.Type == user.LastSelectedType)

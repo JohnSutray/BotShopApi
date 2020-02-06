@@ -1,7 +1,5 @@
-﻿namespace ImportShopApi.Enums
-{
-  public enum EChatState
-  {
+﻿namespace ImportShopApi.Enums {
+  public enum EChatState {
     None,
     CategoryList,
     TypeList,

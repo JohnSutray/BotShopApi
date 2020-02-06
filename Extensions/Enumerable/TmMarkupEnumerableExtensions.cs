@@ -3,10 +3,8 @@ using System.Linq;
 using ImportShopApi.Extensions.String;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace ImportShopApi.Extensions.Enumerable
-{
-  public static partial class EnumerableExtensions
-  {
+namespace ImportShopApi.Extensions.Enumerable {
+  public static partial class EnumerableExtensions {
     public static ReplyKeyboardMarkup ToKeyboardColumn(this IEnumerable<string> items)
       => new ReplyKeyboardMarkup {Keyboard = new[] {items.ToKeyboardButtons()}};
 

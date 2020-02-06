@@ -1,10 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace ImportShopApi.Enums
-{
+namespace ImportShopApi.Enums {
   [JsonConverter(typeof(JsonStringEnumConverter))]
-  public enum EDisplayType
-  {
+  public enum EDisplayType {
     Video,
     Image,
   }

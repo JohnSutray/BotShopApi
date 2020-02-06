@@ -5,20 +5,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Amazon.S3;
 using Amazon.S3.Model;
-using ImportShopApi.Extensions;
 using ImportShopApi.Extensions.String;
 using Microsoft.AspNetCore.Http;
 
-namespace ImportShopApi.Services
-{
-  public class MediaStorageService
-  {
+namespace ImportShopApi.Services {
+  public class MediaStorageService {
     private IAmazonS3 AmazonS3 { get; }
 
-    public MediaStorageService(
-      IAmazonS3 amazonS3
-    )
-    {
+    public MediaStorageService(IAmazonS3 amazonS3) {
       AmazonS3 = amazonS3;
     }
 
@@ -26,10 +20,8 @@ namespace ImportShopApi.Services
 
     private string BucketName => "import-shop-bot-dev";
 
-    public async Task<string> UploadMedia(IFormFile file, int ownerId)
-    {
-      var putObjectRequest = new PutObjectRequest
-      {
+    public async Task<string> UploadMedia(IFormFile file, int ownerId) {
+      var putObjectRequest = new PutObjectRequest {
         Key = $"{ownerId}/{CreateGuid()}{Path.GetExtension(file.FileName)}",
         BucketName = BucketName,
         InputStream = file.OpenReadStream(),
@@ -39,8 +31,7 @@ namespace ImportShopApi.Services
 
       await AmazonS3.PutObjectAsync(putObjectRequest);
 
-      var request = new GetPreSignedUrlRequest
-      {
+      var request = new GetPreSignedUrlRequest {
         Key = putObjectRequest.Key,
         BucketName = putObjectRequest.BucketName,
         Protocol = Protocol.HTTPS,
@@ -50,10 +41,8 @@ namespace ImportShopApi.Services
       return AmazonS3.GetPreSignedURL(request).UrlWithoutQueryParams();
     }
 
-    public async Task RemoveMedia(string mediaUrl)
-    {
-      var deleteObjectRequest = new DeleteObjectRequest
-      {
+    public async Task RemoveMedia(string mediaUrl) {
+      var deleteObjectRequest = new DeleteObjectRequest {
         BucketName = BucketName,
         Key = mediaUrl.GetS3Key()
       };
@@ -61,15 +50,12 @@ namespace ImportShopApi.Services
       await AmazonS3.DeleteObjectAsync(deleteObjectRequest);
     }
 
-    public async Task RemoveOwnerMedia(IEnumerable<string> urls)
-    {
+    public async Task RemoveOwnerMedia(IEnumerable<string> urls) {
       if (urls.Any()) await RemoveManyMedia(urls.Select(u => u.GetS3Key()));
     }
 
-    private async Task RemoveManyMedia(IEnumerable<string> keys)
-    {
-      var deleteObjectsRequest = new DeleteObjectsRequest
-      {
+    private async Task RemoveManyMedia(IEnumerable<string> keys) {
+      var deleteObjectsRequest = new DeleteObjectsRequest {
         Objects = keys.Select(k => new KeyVersion {Key = k}).ToList(),
         BucketName = BucketName
       };

@@ -4,26 +4,21 @@ using ImportShopApi.Constants;
 using ImportShopApi.Extensions.String;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace ImportShopApi.Extensions.Int
-{
-  public static class TmMarkupExtensions
-  {
+namespace ImportShopApi.Extensions.Int {
+  public static class TmMarkupExtensions {
     public static ReplyKeyboardMarkup ToProductPageMenuKeyboard(
       this int currentPage,
       bool previousExists,
       bool nextExists
-    )
-    {
+    ) {
       var paginationRow = new List<KeyboardButton>();
 
-      if (previousExists)
-      {
+      if (previousExists) {
         var previousPageButton = TmLabelsConstants.PaginationLabel(currentPage - 1).ToKeyboardButton();
         paginationRow.Add(previousPageButton);
       }
 
-      if (nextExists)
-      {
+      if (nextExists) {
         var nextPageButton = TmLabelsConstants.PaginationLabel(currentPage + 1).ToKeyboardButton();
         paginationRow.Add(nextPageButton);
       }

@@ -3,10 +3,8 @@ using Amazon.Extensions.NETCore.Setup;
 using Amazon.Runtime;
 using Microsoft.Extensions.Configuration;
 
-namespace ImportShopApi.Extensions.Configuration
-{
-  public static partial class ConfigurationExtensions
-  {
+namespace ImportShopApi.Extensions.Configuration {
+  public static partial class ConfigurationExtensions {
     private static IConfigurationSection GetAwsSection(this IConfiguration configuration)
       => configuration.GetSectionByName("AWS");
 
@@ -19,8 +17,7 @@ namespace ImportShopApi.Extensions.Configuration
       configuration.GetAwsSection()["Region"]
     );
 
-    public static AWSOptions GetAwsOptionsFromAppSettings(this IConfiguration configuration) => new AWSOptions
-    {
+    public static AWSOptions GetAwsOptionsFromAppSettings(this IConfiguration configuration) => new AWSOptions {
       Credentials = configuration.GetAwsCredentials(),
       Region = configuration.GetRegion()
     };

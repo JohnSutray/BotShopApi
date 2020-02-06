@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using ImportShopApi.Models;
 
-namespace ImportShopApi.Extensions.Enumerable
-{
-  public static partial class EnumerableExtensions
-  {
+namespace ImportShopApi.Extensions.Enumerable {
+  public static partial class EnumerableExtensions {
     public static PaginateResult<T> Paginate<T>(
       this IEnumerable<T> items, int page, int limit
-    ) => new PaginateResult<T>
-    {
+    ) => new PaginateResult<T> {
       Items = items.Skip(page * limit).Take(limit).ToArray(),
       Limit = limit,
       Page = page,

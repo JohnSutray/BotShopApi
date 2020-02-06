@@ -1,7 +1,5 @@
-﻿namespace ImportShopApi.Constants
-{
-  public static class TmLabelsConstants
-  {
+﻿namespace ImportShopApi.Constants {
+  public static class TmLabelsConstants {
     public const string Catalog = "Каталог";
     public const string Cart = "Корзина";
     public const string Checkout = "Оформить заказ";

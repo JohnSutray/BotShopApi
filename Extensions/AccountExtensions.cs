@@ -6,10 +6,8 @@ using ImportShopApi.Models.Account;
 using ImportShopApi.Extensions.Configuration;
 using Microsoft.Extensions.Configuration;
 
-namespace ImportShopApi.Extensions
-{
-  public static class AccountExtensions
-  {
+namespace ImportShopApi.Extensions {
+  public static class AccountExtensions {
     public static IEnumerable<Claim> GetAccountClaims(this Account account)
       => new[] {new Claim(ClaimsIdentity.DefaultNameClaimType, account.Id.ToString())};
 

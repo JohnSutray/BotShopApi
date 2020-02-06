@@ -13,10 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ImportShopApi
-{
-  public class Startup
-  {
+namespace ImportShopApi {
+  public class Startup {
     public Startup(IConfiguration configuration) => Configuration = configuration;
 
     private IConfiguration Configuration { get; }
@@ -30,8 +28,7 @@ namespace ImportShopApi
     private void ConfigureDbContext(DbContextOptionsBuilder optionsBuilder)
       => optionsBuilder.UseMySql(ConnectionString);
 
-    private void ConfigureJwt(JwtBearerOptions options)
-    {
+    private void ConfigureJwt(JwtBearerOptions options) {
       options.RequireHttpsMetadata = false;
       options.TokenValidationParameters = Configuration.GetTokenValidationParameters();
     }
@@ -48,8 +45,7 @@ namespace ImportShopApi
       .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
       .AddJwtBearer(ConfigureJwt);
 
-    public void ConfigureServices(IServiceCollection services)
-    {
+    public void ConfigureServices(IServiceCollection services) {
       ConfigureContexts(services);
       ConfigureAspServices(services);
       ConfigureCustomServices(services);
@@ -70,8 +66,7 @@ namespace ImportShopApi
       .AddTransient<TmApiService>()
       .AddSingleton<TmBotManagerService>();
 
-    public void Configure(IApplicationBuilder app, IServiceProvider services)
-    {
+    public void Configure(IApplicationBuilder app, IServiceProvider services) {
       app.UseCors(ConfigureCors)
         .UseDeveloperExceptionPage()
         .UseJsonExceptionHandler()

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace ImportShopApi.Attributes
-{
+namespace ImportShopApi.Attributes {
   [AttributeUsage(AttributeTargets.Method)]
-  public class BaseTmHandler : Attribute
-  {
+  public class BaseTmHandler : Attribute {
     public Regex HandlerRegex { get; }
 
     protected BaseTmHandler(string regex = null) => HandlerRegex = regex != null

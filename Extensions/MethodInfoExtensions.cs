@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 using ImportShopApi.Attributes;
 using ImportShopApi.Models.Telegram;
 
-namespace ImportShopApi.Extensions
-{
-  public static class MethodInfoExtensions
-  {
+namespace ImportShopApi.Extensions {
+  public static class MethodInfoExtensions {
     private static TAttribute GetTmHandlerAttribute<TAttribute>(this MethodInfo methodBase)
       where TAttribute : BaseTmHandler => methodBase
       .GetCustomAttributes()

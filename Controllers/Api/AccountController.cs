@@ -5,13 +5,11 @@ using ImportShopApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ImportShopApi.Controllers.Api
-{
+namespace ImportShopApi.Controllers.Api {
   [Authorize]
   [ApiController]
   [Route("account")]
-  public class AccountController : Controller
-  {
+  public class AccountController : Controller {
     private AccountService AccountService { get; }
     private ProductService ProductService { get; }
     private TmApiService TmApiService { get; }
@@ -22,8 +20,7 @@ namespace ImportShopApi.Controllers.Api
       ProductService productService,
       TmBotManagerService botManagerService,
       TmApiService tmApiService
-    )
-    {
+    ) {
       AccountService = accountService;
       ProductService = productService;
       BotManagerService = botManagerService;
@@ -32,8 +29,7 @@ namespace ImportShopApi.Controllers.Api
 
     [HttpPut]
     [AllowAnonymous]
-    public async Task<ActionResult> CreateAccount(CreateAccountDto createAccountDto)
-    {
+    public async Task<ActionResult> CreateAccount(CreateAccountDto createAccountDto) {
       if (!ModelState.IsValid)
         return this.UnprocessableModel();
 
@@ -51,8 +47,7 @@ namespace ImportShopApi.Controllers.Api
 
 
     [HttpDelete]
-    public async Task<ActionResult> RemoveAccount()
-    {
+    public async Task<ActionResult> RemoveAccount() {
       await ProductService.RemoveAllOwnerProducts(User.GetUserId());
       await AccountService.RemoveAccount(User.GetUserId());
 

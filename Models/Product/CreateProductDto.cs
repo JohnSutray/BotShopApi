@@ -2,10 +2,8 @@
 using ImportShopApi.Constants;
 using Microsoft.AspNetCore.Http;
 
-namespace ImportShopApi.Models.Product
-{
-  public class CreateProductDto
-  {
+namespace ImportShopApi.Models.Product {
+  public class CreateProductDto {
     [Required(ErrorMessage = ValidationMessages.RequiredField)]
     [Range(1, 1000, ErrorMessage = ValidationMessages.Range)]
     public int Price { get; set; }

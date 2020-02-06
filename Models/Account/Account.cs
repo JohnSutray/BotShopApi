@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ImportShopApi.Models.Account
-{
-  public class Account
-  {
+namespace ImportShopApi.Models.Account {
+  public class Account {
     public int Id { get; set; }
 
     [Required]

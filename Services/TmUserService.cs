@@ -5,10 +5,8 @@ using ImportShopApi.Models.Telegram;
 using ImportShopApi.Extensions;
 using Microsoft.EntityFrameworkCore;
 
-namespace ImportShopApi.Services
-{
-  public class TmUserService
-  {
+namespace ImportShopApi.Services {
+  public class TmUserService {
     public TmUserService(TmUserContext userContext) => UserContext = userContext;
     public int AccountId { private get; set; }
     private TmUserContext UserContext { get; }

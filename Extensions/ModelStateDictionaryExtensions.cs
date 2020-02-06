@@ -2,10 +2,8 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace ImportShopApi.Extensions
-{
-  public static class ModelStateDictionaryExtensions
-  {
+namespace ImportShopApi.Extensions {
+  public static class ModelStateDictionaryExtensions {
     public static IEnumerable<string> GetErrors(this ModelStateDictionary modelStateDictionary) => modelStateDictionary
       .Values
       .SelectMany(v => v.Errors)

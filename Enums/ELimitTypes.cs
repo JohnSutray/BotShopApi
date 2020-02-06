@@ -1,7 +1,5 @@
-﻿namespace ImportShopApi.Enums
-{
-  public enum ELimitTypes
-  {
+﻿namespace ImportShopApi.Enums {
+  public enum ELimitTypes {
     MinLength,
     MaxLength,
     Min,

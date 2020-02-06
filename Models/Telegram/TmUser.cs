@@ -2,10 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 using ImportShopApi.Enums;
 
-namespace ImportShopApi.Models.Telegram
-{
-  public class TmUser
-  {
+namespace ImportShopApi.Models.Telegram {
+  public class TmUser {
     public TmUser() => CartItems = new List<CartItem>();
 
     [Key] public int Id { get; set; }

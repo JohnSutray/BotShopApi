@@ -5,10 +5,8 @@ using Telegram.Bot;
 using Telegram.Bot.Types.InputFiles;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace ImportShopApi.Extensions
-{
-  public static class TelegramBotClientExtensions
-  {
+namespace ImportShopApi.Extensions {
+  public static class TelegramBotClientExtensions {
     public static async Task SendTextWithMarkupAsync(
       this TelegramBotClient client,
       int chatId,
@@ -52,10 +50,8 @@ namespace ImportShopApi.Extensions
       InputOnlineFile imageOrVideo,
       string caption,
       IReplyMarkup markup
-    )
-    {
-      switch (imageOrVideo.Url.GetDisplayType())
-      {
+    ) {
+      switch (imageOrVideo.Url.GetDisplayType()) {
         case EDisplayType.Video:
           await client.SendVideoWithMarkupAsync(chatId, imageOrVideo, caption, markup);
           break;
