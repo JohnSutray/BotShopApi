@@ -4,25 +4,25 @@ using Telegram.Bot.Types;
 
 namespace ImportShopApi.Services
 {
-    public class TmApiService
+  public class TmApiService
+  {
+    public async Task<bool> IsValidToken(string token)
     {
-        public async Task<bool> IsValidToken(string token)
-        {
-            var result = await GetMe(token);
+      var result = await GetMe(token);
 
-            return result != null;
-        }
-        
-        public async Task<User> GetMe(string token)
-        {
-            try
-            {
-                return await new TelegramBotClient(token).GetMeAsync();
-            }
-            catch
-            {
-                return null;
-            }
-        }
+      return result != null;
     }
+
+    public async Task<User> GetMe(string token)
+    {
+      try
+      {
+        return await new TelegramBotClient(token).GetMeAsync();
+      }
+      catch
+      {
+        return null;
+      }
+    }
+  }
 }

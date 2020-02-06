@@ -19,7 +19,5 @@ namespace ImportShopApi.Constants
         FeedbackButton.WrapIntoEnumerable()
       }
     );
-
-
   }
 }

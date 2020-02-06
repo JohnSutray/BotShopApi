@@ -2,10 +2,10 @@
 
 namespace ImportShopApi.Enums
 {
-    [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum EDisplayType
-    {
-        Video,
-        Image,
-    }
+  [JsonConverter(typeof(JsonStringEnumConverter))]
+  public enum EDisplayType
+  {
+    Video,
+    Image,
+  }
 }

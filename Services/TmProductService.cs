@@ -4,16 +4,16 @@ using ImportShopApi.Models.Product;
 
 namespace ImportShopApi.Services
 {
-    public class TmProductService
-    {
-        private ProductContext ProductContext { get; }
-        public int AccountId { private get; set; }
+  public class TmProductService
+  {
+    private ProductContext ProductContext { get; }
+    public int AccountId { private get; set; }
 
-        public TmProductService(ProductContext productContext)
-            => ProductContext = productContext;
+    public TmProductService(ProductContext productContext)
+      => ProductContext = productContext;
 
-        public IQueryable<Product> Products => ProductContext
-            .Products
-            .Where(p => p.OwnerId == AccountId);
-    }
+    public IQueryable<Product> Products => ProductContext
+      .Products
+      .Where(p => p.OwnerId == AccountId);
+  }
 }

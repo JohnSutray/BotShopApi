@@ -4,15 +4,15 @@ using Telegram.Bot.Types;
 
 namespace ImportShopApi.Models.Telegram
 {
-    public class TmQueryContext : TmContext
-    {
-        public TmQueryContext(
-            TmProductService productService,
-            TelegramBotClient botClient,
-            TmUserService userService,
-            CallbackQuery callbackQuery
-        ) : base(productService, botClient, userService) => CallbackQuery = callbackQuery;
+  public class TmQueryContext : TmContext
+  {
+    public TmQueryContext(
+      TmProductService productService,
+      TelegramBotClient botClient,
+      TmUserService userService,
+      CallbackQuery callbackQuery
+    ) : base(productService, botClient, userService) => CallbackQuery = callbackQuery;
 
-        public CallbackQuery CallbackQuery { get; }
-    }
+    public CallbackQuery CallbackQuery { get; }
+  }
 }

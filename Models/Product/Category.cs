@@ -2,9 +2,9 @@
 
 namespace ImportShopApi.Models.Product
 {
-    public class Category
-    {
-        public string Name { get; set; }
-        public IEnumerable<string> Types { get; set; }
-    }
+  public class Category
+  {
+    public string Name { get; set; }
+    public IEnumerable<string> Types { get; set; }
+  }
 }

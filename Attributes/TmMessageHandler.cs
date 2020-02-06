@@ -2,9 +2,11 @@
 
 namespace ImportShopApi.Attributes
 {
-    [AttributeUsage(AttributeTargets.Method)]
-    public class TmMessageHandler : BaseTmHandler
+  [AttributeUsage(AttributeTargets.Method)]
+  public class TmMessageHandler : BaseTmHandler
+  {
+    public TmMessageHandler(string regex = null) : base(regex)
     {
-        public TmMessageHandler(string regex = null): base(regex) {}
     }
+  }
 }

@@ -2,9 +2,11 @@
 
 namespace ImportShopApi.Attributes
 {
-    [AttributeUsage(AttributeTargets.Method)]
-    public class TmQueryHandler : BaseTmHandler
+  [AttributeUsage(AttributeTargets.Method)]
+  public class TmQueryHandler : BaseTmHandler
+  {
+    public TmQueryHandler(string regex = null) : base(regex)
     {
-        public TmQueryHandler(string regex = null): base(regex) {}
     }
+  }
 }
