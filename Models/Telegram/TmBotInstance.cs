@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ImportShopApi.Attributes;
-using ImportShopApi.Services;
-using ImportShopApi.Extensions;
+using ImportShopApi.Extensions.Telegram.Controller;
+using ImportShopApi.Services.Telegram;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 using Telegram.Bot.Args;
-using Telegram.Bot.Types;
 
 namespace ImportShopApi.Models.Telegram {
   public class TmBotInstance {

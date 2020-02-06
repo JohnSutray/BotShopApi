@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
-using ImportShopApi.Extensions.Object;
+using ImportShopApi.Extensions.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +14,7 @@ namespace ImportShopApi.Extensions {
       context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
       context.Response.ContentType = "application/json";
       if (context.Features.Get<IExceptionHandlerFeature>()?.Error.Message is {} errorMessage)
-        await context.Response.WriteAsync(new[] {errorMessage}.ToJson());
+        await context.Response.WriteAsync(errorMessage.WrapIntoEnumerable().ToJson());
     }
   }
 }

@@ -1,4 +1,4 @@
-﻿using ImportShopApi.Services;
+﻿using ImportShopApi.Services.Telegram;
 using Telegram.Bot;
 
 namespace ImportShopApi.Models.Telegram {

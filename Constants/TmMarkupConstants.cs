@@ -1,5 +1,6 @@
 ﻿using ImportShopApi.Extensions;
-using ImportShopApi.Extensions.String;
+using ImportShopApi.Extensions.Common;
+using ImportShopApi.Extensions.Telegram.Markup;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace ImportShopApi.Constants {

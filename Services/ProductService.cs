@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using ImportShopApi.Contexts;
 using ImportShopApi.Models.Product;
 using ImportShopApi.Extensions;
-using ImportShopApi.Extensions.String;
 using Microsoft.EntityFrameworkCore;
 
 namespace ImportShopApi.Services {
