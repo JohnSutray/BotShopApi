@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using ImportShopBot.Extensions.String;
+using ImportShopApi.Extensions.String;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ImportShopBot.Extensions.Configuration
+namespace ImportShopApi.Extensions.Configuration
 {
     public static partial class ConfigurationExtensions
     {

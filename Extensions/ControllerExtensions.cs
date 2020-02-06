@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace ImportShopBot.Extensions
+namespace ImportShopApi.Extensions
 {
     public static class ControllerExtensions
     {

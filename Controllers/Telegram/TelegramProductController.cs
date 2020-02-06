@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using ImportShopBot.Attributes;
-using ImportShopBot.Constants;
-using ImportShopBot.Enums;
-using ImportShopBot.Extensions;
-using ImportShopBot.Extensions.Enumerable;
-using ImportShopBot.Models.Product;
-using ImportShopBot.Models.Telegram;
+using ImportShopApi.Attributes;
+using ImportShopApi.Constants;
+using ImportShopApi.Enums;
+using ImportShopApi.Extensions;
+using ImportShopApi.Extensions.Enumerable;
+using ImportShopApi.Extensions.TelegramContext;
+using ImportShopApi.Models.Telegram;
 
-namespace ImportShopBot.Controllers.Telegram
+namespace ImportShopApi.Controllers.Telegram
 {
     public class TelegramProductController
     {
@@ -21,14 +21,16 @@ namespace ImportShopBot.Controllers.Telegram
                 .AsEnumerable()
                 .GetGroups(p => p.Category)
                 .ToKeyboardColumn();
+            var user = await context.GetUserAsync();
 
             await context.TelegramBotClient.SendTextWithMarkupAsync(
-                context.Message.From.Id,
+                context.GetUserTmId(),
                 TmLabelsConstants.ChooseCategory,
                 categoryList
             );
 
-            context.User.ChatState = EChatState.CategoryList;
+            user.ChatState = EChatState.CategoryList;
+            await context.UserService.SaveChangesAsync();
 
             return true;
         }
@@ -36,29 +38,28 @@ namespace ImportShopBot.Controllers.Telegram
         [TmMessageHandler]
         public async Task<bool> TypeList(TmMessageContext context)
         {
-            if (context.User.ChatState != EChatState.CategoryList || !MessageIsCategory(context))
-                return false;
+            var user = await context.GetUserAsync();
 
-            bool Filter(Product p) => p.Category == context.User.LastSelectedCategory;
-            string GroupBy(Product p) => p.Type;
+            if (user.ChatState != EChatState.CategoryList || !await context.MessageIsCategory())
+                return false;
 
             var productTypesList = context.ProductService
                 .Products
+                .Where(p => p.Category == user.LastSelectedCategory)
                 .AsEnumerable()
-                .Where(Filter)
-                .GetGroups(GroupBy)
+                .GetGroups(p => p.Type)
                 .ToKeyboardColumn();
 
             await context.TelegramBotClient.SendTextWithMarkupAsync(
-                context.Message.From.Id,
+                context.GetUserTmId(),
                 TmLabelsConstants.ChooseType,
                 productTypesList
             );
 
-            var a = productTypesList.Keyboard.First().ToList();
+            user.LastSelectedCategory = context.Message.Text;
+            user.ChatState = EChatState.TypeList;
 
-            context.User.LastSelectedCategory = context.Message.Text;
-            context.User.ChatState = EChatState.TypeList;
+            await context.UserService.SaveChangesAsync();
 
             return true;
         }
@@ -66,13 +67,16 @@ namespace ImportShopBot.Controllers.Telegram
         [TmMessageHandler]
         public async Task<bool> ToProductList(TmMessageContext context)
         {
-            if (context.User.ChatState != EChatState.TypeList || !MessageIsProductType(context))
+            var user = await context.GetUserAsync();
+
+            if (user.ChatState != EChatState.TypeList || !await context.MessageIsProductType())
                 return false;
 
-            context.User.LastSelectedType = context.Message.Text;
-            context.User.ChatState = EChatState.ProductList;
-            
+            user.LastSelectedType = context.Message.Text;
+            user.ChatState = EChatState.ProductList;
+
             await context.PaginateProductList(0);
+            await context.UserService.SaveChangesAsync();
 
             return true;
         }
@@ -83,22 +87,25 @@ namespace ImportShopBot.Controllers.Telegram
             + "|"
             + TmLabelsConstants.NextPage
             + ")"
-            + " \\(\\d+\\)"
+            + " " +
+            "\\(" 
+            + "\\d+" 
+            + " "
+            + TmLabelsConstants.Page
+            + "\\)"
         )]
         public async Task<bool> PaginateProducts(TmMessageContext context)
         {
-            if (context.User.ChatState != EChatState.ProductList)
+            var user = await context.GetUserAsync();
+
+            Console.WriteLine(context.Message.Text);
+
+            if (user.ChatState != EChatState.ProductList)
                 return false;
 
             await context.PaginateProductList(context.Message.Text.ParsePageFromMessage());
 
             return true;
         }
-
-        private bool MessageIsCategory(TmMessageContext context) =>
-            context.ProductService.Products.Any(p => p.Category == context.Message.Text);
-
-        private bool MessageIsProductType(TmMessageContext context) =>
-            context.ProductService.Products.Any(p => p.Type == context.Message.Text);
     }
 }

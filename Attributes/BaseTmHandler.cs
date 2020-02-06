@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace ImportShopBot.Attributes
+namespace ImportShopApi.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class BaseTmHandler : Attribute

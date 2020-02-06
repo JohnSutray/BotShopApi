@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ImportShopBot.Extensions.String
+namespace ImportShopApi.Extensions.String
 {
     public static partial class StringExtensions
     {

@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
-using ImportShopBot.Constants;
-using ImportShopBot.Extensions;
-using ImportShopBot.Models.Account;
-using ImportShopBot.Services;
+using ImportShopApi.Constants;
+using ImportShopApi.Models.Account;
+using ImportShopApi.Services;
+using ImportShopApi.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
-namespace ImportShopBot.Controllers.Api
+namespace ImportShopApi.Controllers.Api
 {
     [ApiController]
     [Route("auth")]

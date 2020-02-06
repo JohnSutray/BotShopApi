@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ImportShopBot.Attributes
+namespace ImportShopApi.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class TmMessageHandler : BaseTmHandler

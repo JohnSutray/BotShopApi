@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using ImportShopBot.Enums;
-using ImportShopBot.Extensions.String;
+using ImportShopApi.Enums;
+using ImportShopApi.Extensions.String;
 using Telegram.Bot;
 using Telegram.Bot.Types.InputFiles;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace ImportShopBot.Extensions
+namespace ImportShopApi.Extensions
 {
     public static class TelegramBotClientExtensions
     {

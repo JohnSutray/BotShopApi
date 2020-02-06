@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace ImportShopBot.Extensions
+namespace ImportShopApi.Extensions
 {
     public static class DbSetExtensions
     {

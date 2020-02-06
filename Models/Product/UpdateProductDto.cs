@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ImportShopBot.Constants;
+using ImportShopApi.Constants;
 using Microsoft.AspNetCore.Http;
 
-namespace ImportShopBot.Models.Product
+namespace ImportShopApi.Models.Product
 {
     public class UpdateProductDto
     {

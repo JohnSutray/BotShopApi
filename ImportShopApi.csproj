@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace>ImportShopApi</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,13 +14,13 @@
       <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+      <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
       <PackageReference Include="Telegram.Bot" Version="15.1.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Middlewares" />
+      <Folder Include="Utils" />
     </ItemGroup>
 
 </Project>

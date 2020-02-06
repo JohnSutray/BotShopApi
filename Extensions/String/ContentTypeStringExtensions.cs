@@ -1,8 +1,8 @@
 ﻿using System;
-using ImportShopBot.Enums;
+using ImportShopApi.Enums;
 using Microsoft.AspNetCore.StaticFiles;
 
-namespace ImportShopBot.Extensions.String
+namespace ImportShopApi.Extensions.String
 {
     public static partial class StringExtensions
     {

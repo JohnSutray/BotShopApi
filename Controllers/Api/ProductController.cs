@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ImportShopBot.Extensions;
-using ImportShopBot.Extensions.Enumerable;
-using ImportShopBot.Models;
-using ImportShopBot.Models.Product;
-using ImportShopBot.Services;
+using ImportShopApi.Models;
+using ImportShopApi.Models.Product;
+using ImportShopApi.Services;
+using ImportShopApi.Extensions;
+using ImportShopApi.Extensions.Enumerable;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ImportShopBot.Controllers.Api
+namespace ImportShopApi.Controllers.Api
 {
     public static class ProductQueryableExtensions
     {

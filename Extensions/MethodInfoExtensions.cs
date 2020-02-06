@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using ImportShopBot.Attributes;
-using ImportShopBot.Models.Telegram;
+using ImportShopApi.Attributes;
+using ImportShopApi.Models.Telegram;
 
-namespace ImportShopBot.Extensions
+namespace ImportShopApi.Extensions
 {
     public static class MethodInfoExtensions
     {

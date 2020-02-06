@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ImportShopBot.Extensions.Enumerable
+namespace ImportShopApi.Extensions.Enumerable
 {
     public static partial class EnumerableExtensions
     {

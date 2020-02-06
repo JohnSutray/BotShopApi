@@ -1,23 +1,26 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using ImportShopBot.Contexts;
-using ImportShopBot.Extensions;
-using ImportShopBot.Models.Telegram;
+using ImportShopApi.Contexts;
+using ImportShopApi.Models.Telegram;
+using ImportShopApi.Extensions;
+using Microsoft.EntityFrameworkCore;
 
-namespace ImportShopBot.Services
+namespace ImportShopApi.Services
 {
     public class TmUserService
     {
+        public TmUserService(TmUserContext userContext) => UserContext = userContext;
+        public int AccountId { private get; set; }
         private TmUserContext UserContext { get; }
 
-        private IQueryable<TmUser> Users => UserContext.TmUsers;
+        private IQueryable<TmUser> Users => UserContext
+            .TmUsers
+            .Where(user => user.AccountId == AccountId);
 
-        public TmUserService(TmUserContext userContext) => UserContext = userContext;
+        public async Task<TmUser> GetUserByTmId(int userId) =>
+            await Users.FirstOrDefaultAsync(user => user.TmId == userId)
+            ?? await UserContext.AddAndSaveAsync(new TmUser {TmId = userId, AccountId = AccountId});
 
-        public async Task<TmUser> GetUserByTmId(int tmId, int accountId) =>
-            Users.FirstOrDefault(user => user.TmId == tmId && user.AccountId == accountId) 
-            ?? await UserContext.AddAndSaveAsync(new TmUser { TmId = tmId, AccountId = accountId});
-
-        public async Task SaveChanges() => await UserContext.SaveChangesAsync();
+        public async Task SaveChangesAsync() => await UserContext.SaveChangesAsync();
     }
 }

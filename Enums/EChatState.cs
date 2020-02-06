@@ -1,4 +1,4 @@
-﻿namespace ImportShopBot.Enums
+﻿namespace ImportShopApi.Enums
 {
     public enum EChatState
     {

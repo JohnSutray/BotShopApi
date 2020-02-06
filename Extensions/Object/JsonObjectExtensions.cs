@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ImportShopBot.Extensions
+namespace ImportShopApi.Extensions.Object
 {
     public static class ObjectExtensions
     {

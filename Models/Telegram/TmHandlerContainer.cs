@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace ImportShopBot.Models.Telegram
+namespace ImportShopApi.Models.Telegram
 {
     public delegate Task<bool> TmHandler<in TContext>(TContext context) 
         where TContext : TmContext;

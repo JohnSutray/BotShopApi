@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace ImportShopBot
+namespace ImportShopApi
 {
     public class Program
     {

@@ -1,13 +1,13 @@
 ﻿using System.Linq;
-using ImportShopBot.Contexts;
-using ImportShopBot.Models.Product;
+using ImportShopApi.Contexts;
+using ImportShopApi.Models.Product;
 
-namespace ImportShopBot.Services
+namespace ImportShopApi.Services
 {
     public class TmProductService
     {
         private ProductContext ProductContext { get; }
-        public int AccountId { get; set; }
+        public int AccountId { private get; set; }
 
         public TmProductService(ProductContext productContext)
             => ProductContext = productContext;

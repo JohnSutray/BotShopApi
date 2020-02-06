@@ -1,9 +1,18 @@
-﻿using Telegram.Bot.Types;
+﻿using ImportShopApi.Services;
+using Telegram.Bot;
+using Telegram.Bot.Types;
 
-namespace ImportShopBot.Models.Telegram
+namespace ImportShopApi.Models.Telegram
 {
     public class TmMessageContext : TmContext
     {
-        public Message Message { get; set; }
+        public TmMessageContext(
+            TmProductService productService,
+            TelegramBotClient botClient,
+            TmUserService userService,
+            Message message
+        ) : base(productService, botClient, userService) => Message = message;
+
+        public Message Message { get; }
     }
 }

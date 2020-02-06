@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ImportShopBot.Enums;
+using ImportShopApi.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace ImportShopBot.Models.Product
+namespace ImportShopApi.Models.Product
 {
     public class Product
     {

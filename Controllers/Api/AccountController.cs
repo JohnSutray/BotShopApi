@@ -1,12 +1,11 @@
 ﻿using System.Threading.Tasks;
-using ImportShopBot.Extensions;
-using ImportShopBot.Models;
-using ImportShopBot.Models.Account;
-using ImportShopBot.Services;
+using ImportShopApi.Extensions;
+using ImportShopApi.Models.Account;
+using ImportShopApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ImportShopBot.Controllers.Api
+namespace ImportShopApi.Controllers.Api
 {
     [Authorize]
     [ApiController]

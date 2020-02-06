@@ -1,10 +1,11 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
+using ImportShopApi.Extensions.Object;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 
-namespace ImportShopBot.Extensions
+namespace ImportShopApi.Extensions
 {
     public static class ApplicationBuilderExtensions
     {

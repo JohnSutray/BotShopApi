@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.Extensions.Configuration;
 
-namespace ImportShopBot.Extensions.Configuration
+namespace ImportShopApi.Extensions.Configuration
 {
     public static partial class ConfigurationExtensions
     {

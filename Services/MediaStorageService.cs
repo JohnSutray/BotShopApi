@@ -5,11 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Amazon.S3;
 using Amazon.S3.Model;
-using ImportShopBot.Extensions;
-using ImportShopBot.Extensions.String;
+using ImportShopApi.Extensions;
+using ImportShopApi.Extensions.String;
 using Microsoft.AspNetCore.Http;
 
-namespace ImportShopBot.Services
+namespace ImportShopApi.Services
 {
     // TODO: Add file size validation
     public class MediaStorageService

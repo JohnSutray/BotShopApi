@@ -1,6 +1,6 @@
-﻿using ImportShopBot.Models.Product;
+﻿using ImportShopApi.Models.Product;
 
-namespace ImportShopBot.Extensions
+namespace ImportShopApi.Extensions
 {
     public static class ProductExtensions
     {

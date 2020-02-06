@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using ImportShopBot.Enums;
+using ImportShopApi.Enums;
 
-namespace ImportShopBot.Models.Telegram
+namespace ImportShopApi.Models.Telegram
 {
     public class TmUser
     {

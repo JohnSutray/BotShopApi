@@ -3,7 +3,7 @@ using Amazon.Extensions.NETCore.Setup;
 using Amazon.Runtime;
 using Microsoft.Extensions.Configuration;
 
-namespace ImportShopBot.Extensions.Configuration
+namespace ImportShopApi.Extensions.Configuration
 {
     public static partial class ConfigurationExtensions
     {

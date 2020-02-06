@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using ImportShopBot.Contexts;
-using ImportShopBot.Models;
-using ImportShopBot.Models.Account;
+using ImportShopApi.Contexts;
+using ImportShopApi.Models.Account;
+using ImportShopApi.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ImportShopBot.Services
+namespace ImportShopApi.Services
 {
     public class AccountService
     {

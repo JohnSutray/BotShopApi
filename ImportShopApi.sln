@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportShopBot", "ImportShopBot.csproj", "{C84E7BC2-63E2-49F6-9A90-5892D2B6313E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportShopApi", "ImportShopApi.csproj", "{C84E7BC2-63E2-49F6-9A90-5892D2B6313E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

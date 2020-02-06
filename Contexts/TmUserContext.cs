@@ -1,7 +1,7 @@
-﻿using ImportShopBot.Models.Telegram;
+﻿using ImportShopApi.Models.Telegram;
 using Microsoft.EntityFrameworkCore;
 
-namespace ImportShopBot.Contexts
+namespace ImportShopApi.Contexts
 {
     public class TmUserContext : DbContext
     {
@@ -14,8 +14,7 @@ namespace ImportShopBot.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TmUser>()
-                .HasMany(u => u.CartItems);
+            modelBuilder.Entity<TmUser>().HasMany(u => u.CartItems);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -1,13 +1,23 @@
-﻿using ImportShopBot.Services;
+﻿using ImportShopApi.Services;
 using Telegram.Bot;
 
-namespace ImportShopBot.Models.Telegram
+namespace ImportShopApi.Models.Telegram
 {
     public class TmContext
     {
-        public TmProductService ProductService { get; set; }
-        public TelegramBotClient TelegramBotClient { get; set; }
-        
-        public TmUser User { get; set; }
+        public TmContext(
+            TmProductService productService,
+            TelegramBotClient botClient,
+            TmUserService userService
+        )
+        {
+            ProductService = productService;
+            TelegramBotClient = botClient;
+            UserService = userService;
+        }
+
+        public TmProductService ProductService { get; }
+        public TelegramBotClient TelegramBotClient { get; }
+        public TmUserService UserService { get; }
     }
 }

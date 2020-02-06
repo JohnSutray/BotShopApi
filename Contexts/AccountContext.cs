@@ -1,7 +1,7 @@
-﻿using ImportShopBot.Models.Account;
+﻿using ImportShopApi.Models.Account;
 using Microsoft.EntityFrameworkCore;
 
-namespace ImportShopBot.Contexts
+namespace ImportShopApi.Contexts
 {
     public class AccountContext : DbContext
     {

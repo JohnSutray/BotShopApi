@@ -1,4 +1,4 @@
-﻿namespace ImportShopBot.Constants
+﻿namespace ImportShopApi.Constants
 {
     public static class MessageConstants
     {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ImportShopBot.Extensions.String;
+using ImportShopApi.Extensions.String;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace ImportShopBot.Extensions.Enumerable
+namespace ImportShopApi.Extensions.Enumerable
 {
     public static partial class EnumerableExtensions
     {

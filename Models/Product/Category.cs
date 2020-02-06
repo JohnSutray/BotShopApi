@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ImportShopBot.Models.Product
+namespace ImportShopApi.Models.Product
 {
     public class Category
     {

@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using ImportShopBot.Contexts;
-using ImportShopBot.Models.Account;
+using ImportShopApi.Contexts;
+using ImportShopApi.Models.Account;
 
-namespace ImportShopBot.Services
+namespace ImportShopApi.Services
 {
     public class TmAccountService
     {

@@ -1,9 +1,18 @@
-﻿using Telegram.Bot.Types;
+﻿using ImportShopApi.Services;
+using Telegram.Bot;
+using Telegram.Bot.Types;
 
-namespace ImportShopBot.Models.Telegram
+namespace ImportShopApi.Models.Telegram
 {
     public class TmQueryContext : TmContext
     {
-        public CallbackQuery CallbackQuery { get; set; }
+        public TmQueryContext(
+            TmProductService productService,
+            TelegramBotClient botClient,
+            TmUserService userService,
+            CallbackQuery callbackQuery
+        ) : base(productService, botClient, userService) => CallbackQuery = callbackQuery;
+
+        public CallbackQuery CallbackQuery { get; }
     }
 }

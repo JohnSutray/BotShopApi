@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using ImportShopBot.Contexts;
-using ImportShopBot.Extensions;
-using ImportShopBot.Extensions.String;
-using ImportShopBot.Models.Product;
+using ImportShopApi.Contexts;
+using ImportShopApi.Models.Product;
+using ImportShopApi.Extensions;
+using ImportShopApi.Extensions.String;
 using Microsoft.EntityFrameworkCore;
 
-namespace ImportShopBot.Services
+namespace ImportShopApi.Services
 {
     public class ProductService
     {

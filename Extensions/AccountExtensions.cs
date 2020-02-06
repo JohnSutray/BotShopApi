@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using ImportShopBot.Extensions.Configuration;
-using ImportShopBot.Models.Account;
+using ImportShopApi.Models.Account;
+using ImportShopApi.Extensions.Configuration;
 using Microsoft.Extensions.Configuration;
 
-namespace ImportShopBot.Extensions
+namespace ImportShopApi.Extensions
 {
     public static class AccountExtensions
     {

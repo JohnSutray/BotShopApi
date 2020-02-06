@@ -1,9 +1,11 @@
 using System;
+using System.Text.RegularExpressions;
 using Amazon.S3;
-using ImportShopBot.Contexts;
-using ImportShopBot.Extensions;
-using ImportShopBot.Extensions.Configuration;
-using ImportShopBot.Services;
+using ImportShopApi.Constants;
+using ImportShopApi.Contexts;
+using ImportShopApi.Services;
+using ImportShopApi.Extensions;
+using ImportShopApi.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -11,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ImportShopBot
+namespace ImportShopApi
 {
     public class Startup
     {
@@ -26,7 +28,7 @@ namespace ImportShopBot
             .AllowAnyMethod();
 
         private void ConfigureDbContext(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseSqlServer(ConnectionString);
+            => optionsBuilder.UseMySql(ConnectionString);
 
         private void ConfigureJwt(JwtBearerOptions options)
         {

@@ -2,7 +2,7 @@
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
-namespace ImportShopBot.Services
+namespace ImportShopApi.Services
 {
     public class TmApiService
     {

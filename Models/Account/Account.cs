@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ImportShopBot.Models.Account
+namespace ImportShopApi.Models.Account
 {
     public class Account
     {
