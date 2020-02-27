@@ -1,46 +1,45 @@
 ﻿using System.Threading.Tasks;
+using ImportShopCore.Models.Account;
 using ImportShopApi.Constants;
 using ImportShopApi.Extensions;
 using ImportShopApi.Extensions.Authentication;
-using ImportShopApi.Models.Account;
 using ImportShopApi.Services;
-using ImportShopApi.Services.Telegram;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Telegram.Bot;
 
-namespace ImportShopApi.Controllers.WebApi {
+namespace ImportShopApi.Controllers {
   [ApiController]
   [Route("auth")]
   public class AuthenticateController : Controller {
     private AccountService AccountService { get; }
     private IConfiguration Configuration { get; }
-    private TmApiService TmApiService { get; }
 
     public AuthenticateController(
       AccountService accountService,
-      TmApiService tmApiService,
       IConfiguration configuration
     ) {
       AccountService = accountService;
       Configuration = configuration;
-      TmApiService = tmApiService;
     }
 
     [HttpPost]
     public async Task<IActionResult> SignIn(AccountLogin accountLogin) {
-      if (!ModelState.IsValid) return this.UnprocessableModel();
+      if (!ModelState.IsValid) return this.UnprocessableModelResult();
 
-      var account = await AccountService.FindByToken(accountLogin.TelegramToken);
+      var account = await AccountService.ByToken(accountLogin.TelegramToken);
 
       if (account == null)
-        return this.AddModelError(MessageConstants.NoAccountWithCurrentToken)
-          .UnprocessableModel();
+        return this
+          .AddModelError(MessageConstants.NoAccountWithCurrentToken)
+          .UnprocessableModelResult();
 
-      var botInfo = await TmApiService.GetMe(account.TelegramToken);
+      var botInfo = await new TelegramBotClient(account.TelegramToken).GetBotInfo();
 
       return Ok(new {
-        Token = account.GetJwt(Configuration),
-        Name = botInfo.Username
+        Token = account.Id.CreateJwt(Configuration),
+        Name = botInfo.Name,
+        Avatar = botInfo.Avatar
       });
     }
   }

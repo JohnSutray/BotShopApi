@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Amazon.S3;
 using Amazon.S3.Model;
+using ImportShopCore.Extensions.Media;
 using ImportShopApi.Extensions.Aws;
 using Microsoft.AspNetCore.Http;
 
@@ -50,11 +51,7 @@ namespace ImportShopApi.Services {
       await AmazonS3.DeleteObjectAsync(deleteObjectRequest);
     }
 
-    public async Task RemoveOwnerMedia(IEnumerable<string> urls) {
-      if (urls.Any()) await RemoveManyMedia(urls.Select(u => u.GetS3Key()));
-    }
-
-    private async Task RemoveManyMedia(IEnumerable<string> keys) {
+    public async Task RemoveManyMedia(IEnumerable<string> keys) {
       var deleteObjectsRequest = new DeleteObjectsRequest {
         Objects = keys.Select(k => new KeyVersion {Key = k}).ToList(),
         BucketName = BucketName

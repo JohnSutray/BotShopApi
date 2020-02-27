@@ -1,58 +1,57 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using ImportShopApi.Contexts;
-using ImportShopApi.Models.Product;
-using ImportShopApi.Extensions;
-using Microsoft.EntityFrameworkCore;
+using ImportShopCore;
+using ImportShopCore.Extensions.Common;
+using ImportShopCore.Models;
+using ImportShopCore.Models.Account;
+using ImportShopCore.Models.Product;
+using ImportShopApi.Extensions.Common;
+using ImportShopApi.Extensions.Product;
+using ImportShopApi.Models;
 
 namespace ImportShopApi.Services {
-  public class ProductService {
-    private ProductContext ProductContext { get; }
+  public class ProductService : RepositoryService<Product> {
     private MediaStorageService MediaStorageService { get; }
 
     public ProductService(
-      ProductContext productContext,
+      ApplicationContext applicationContext,
       MediaStorageService mediaStorageService
-    ) {
-      ProductContext = productContext;
+    ) : base(applicationContext, context => context.Products) {
       MediaStorageService = mediaStorageService;
     }
 
-    public IQueryable<Product> Products => ProductContext.Products;
+    public async Task<bool> CheckIsProductExistsAsync(int productId) =>
+      await ByIdAsync(productId) != null;
 
-    public async Task<bool> IsValidName(string name, int ownerId)
-      => !await Products.AnyAsync(p => p.Name == name && p.OwnerId == ownerId);
+    public async Task<bool> CheckIsValidNameAsync(string name, int accountId) {
+      var commonProducts = await ByPatternManyAsync(product => product.AccountId == accountId && product.Name == name);
 
-    public async Task CreateProduct(CreateProductDto productDto, int ownerId) {
-      var product = new Product {
-        Name = productDto.Name,
-        Description = productDto.Description,
-        Category = productDto.Category,
-        Price = productDto.Price,
-        Type = productDto.Type,
-        OwnerId = ownerId,
-        MediaUrl = await MediaStorageService.UploadMedia(productDto.Media, ownerId),
-      };
-      await ProductContext.AddAsync(product);
-      await ProductContext.SaveChangesAsync();
+      return commonProducts.Any();
     }
 
-    public async Task<bool> RemoveProduct(int id, int ownerId) {
-      var productToRemove = await FindProductById(id, ownerId);
+    public async Task CreateAsync(CreateProductDto productDto, int accountId) =>
+      await AddEntityAsync(
+        new Product {
+          Name = productDto.Name,
+          Description = productDto.Description,
+          Category = productDto.Category,
+          Price = productDto.Price,
+          Type = productDto.Type,
+          MediaUrl = await MediaStorageService.UploadMedia(productDto.Media, accountId),
+          AccountId = accountId
+        }
+      );
 
-      if (productToRemove == null) return false;
+    public async Task RemoveProductAsync(int id) {
+      var product = await ByIdAsync(id);
 
-      await MediaStorageService.RemoveMedia(productToRemove.MediaUrl);
-      ProductContext.Remove(productToRemove);
-      await ProductContext.SaveChangesAsync();
-
-      return true;
+      await MediaStorageService.RemoveMedia(product.MediaUrl);
+      await RemoveByIdAsync(product.Id);
     }
 
-    public async Task<bool> UpdateProduct(int id, int ownerId, UpdateProductDto updateProductDto) {
-      var productToUpdate = await FindProductById(id, ownerId);
-
-      if (productToUpdate == null) return false;
+    public async Task UpdateAsync(int id, int accountId, UpdateProductDto updateProductDto) {
+      var productToUpdate = await ByIdAsync(id);
 
       productToUpdate.Name = updateProductDto.Name ?? productToUpdate.Name;
       productToUpdate.Description = updateProductDto.Description ?? productToUpdate.Description;
@@ -62,22 +61,36 @@ namespace ImportShopApi.Services {
 
       if (updateProductDto.Media != null) {
         await MediaStorageService.RemoveMedia(productToUpdate.MediaUrl);
-        productToUpdate.MediaUrl = await MediaStorageService.UploadMedia(updateProductDto.Media, ownerId);
+        productToUpdate.MediaUrl = await MediaStorageService.UploadMedia(updateProductDto.Media, accountId);
       }
 
-      await ProductContext.SaveChangesAsync();
-
-      return true;
+      await SaveChangesAsync();
     }
 
-    public async Task RemoveAllOwnerProducts(int ownerId) {
-      var productsToDelete = Products.Where(p => p.OwnerId == ownerId);
-      ProductContext.RemoveRange();
-      await ProductContext.SaveChangesAsync();
-      await MediaStorageService.RemoveOwnerMedia(productsToDelete.Select(p => p.MediaUrl));
+    public async Task RemoveAllProductsAsync(int accountId) {
+      var removedProducts = await RemoveManyByPatternAsync(
+        product => product.AccountId == accountId
+      );
+
+      string SelectMediaUrl(Product product) => product.MediaUrl;
+      var mediaS3Keys = removedProducts.Select(SelectMediaUrl).ToList();
+      await MediaStorageService.RemoveManyMedia(mediaS3Keys);
     }
 
-    private async Task<Product> FindProductById(int id, int ownerId)
-      => await Products.FirstOrDefaultAsync(p => p.Id == id && p.OwnerId == ownerId);
+    public async Task<PaginateResult<Product>> PaginateAsync(
+      int accountId, string category, string type, int page, int limit
+    ) => await PaginateByPatternAsync(
+      product => product.AccountId == accountId && product.Category == category && product.Type == type,
+      page,
+      limit
+    );
+
+    public async Task<IEnumerable<Category>> GetCategoriesAsync(int accountId) {
+      var products = await ByPatternManyAsync(
+        product => product.AccountId == accountId
+      );
+
+      return products.GetCategories();
+    }
   }
 }

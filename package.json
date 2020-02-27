@@ -2,6 +2,10 @@
   "name": "import-shop-bot",
   "version": "1.0.0",
   "scripts": {
-    "start:dev": "dotnet watch run"
+    "start:dev": "dotnet watch run",
+    "migrations:add": "dotnet ef migrations add DataBaseMigration --context ApplicationContext",
+    "database:update": "dotnet ef database update --context ApplicationContext",
+    "remove:migrations": "if exist Migrations rmdir /s /q Migrations",
+    "database:alter": "npm run remove:migrations && npm run migrations:add && npm run database:update"
   }
 }
