@@ -1,62 +1,34 @@
-using Amazon.S3;
 using ImportShopApi.Extensions;
 using ImportShopApi.Extensions.Authentication;
 using ImportShopApi.Extensions.Aws;
-using ImportShopApi.Services;
+using ImportShopApi.Extensions.Json;
+using ImportShopApi.Extensions.Swagger;
 using ImportShopCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using ImportShopCore.Extensions;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 
 namespace ImportShopApi {
   public class Startup {
-    public Startup(IConfiguration configuration) => Configuration = configuration;
-
     private IConfiguration Configuration { get; }
 
-    private void ConfigureCors(CorsPolicyBuilder builder) => builder
-      .AllowAnyOrigin()
-      .AllowAnyHeader()
-      .AllowAnyMethod();
+    public Startup(IConfiguration configuration) => Configuration = configuration;
 
-    private void ConfigureJwt(JwtBearerOptions options) {
-      options.RequireHttpsMetadata = false;
-      options.TokenValidationParameters = Configuration.GetTokenValidationParameters();
-    }
-
-    private void ConfigureJson(MvcNewtonsoftJsonOptions options) {
-      options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-    }
-
-    private void ConfigureContexts(IServiceCollection services) => services.AddDbContext<ApplicationContext>();
-
-    private void ConfigureAspServices(IServiceCollection services) => services
+    public void ConfigureServices(IServiceCollection services) => services
+      .AddSwaggerServices()
+      .AddAssemblyServices(typeof(Startup).Assembly)
+      .AddAwsS3(Configuration)
+      .AddDbContext<ApplicationContext>()
       .AddControllers()
-      .AddNewtonsoftJson(ConfigureJson)
-      .Services
+      .AddJsonServices()
       .AddCors()
-      .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-      .AddJwtBearer(ConfigureJwt);
+      .AddJwtAuthentication(Configuration);
 
-    public void ConfigureServices(IServiceCollection services) {
-      ConfigureContexts(services);
-      ConfigureAspServices(services);
-      ConfigureCustomServices(services);
-    }
-
-    private void ConfigureCustomServices(IServiceCollection services) => services
-      .AddTransient<ProductService>()
-      .AddTransient<AccountService>()
-      .AddTransient<MediaStorageService>()
-      .AddAWSService<IAmazonS3>()
-      .AddDefaultAWSOptions(Configuration.GetAwsOptionsFromAppSettings());
 
     public void Configure(IApplicationBuilder application) => application
-      .UseCors(ConfigureCors)
+      .UseSwaggerUIAndApi()
+      .UseCorsAllowingAnyRequest()
       .UseDeveloperExceptionPage()
       .UseJsonExceptionHandler()
       .UseRouting()

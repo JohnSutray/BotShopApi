@@ -1,9 +1,12 @@
 ﻿using System.Threading.Tasks;
 using ImportShopCore;
+using ImportShopCore.Attributes;
 using ImportShopCore.Models;
 using ImportShopCore.Models.Account;
+using ImportShopCore.Models.Entities;
 
 namespace ImportShopApi.Services {
+  [Service]
   public class AccountService : RepositoryService<Account> {
     public AccountService(ApplicationContext applicationContext)
       : base(applicationContext, context => context.Accounts) { }

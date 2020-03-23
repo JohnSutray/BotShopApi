@@ -31,7 +31,7 @@ namespace ImportShopApi.Controllers {
 
       if (account == null)
         return this
-          .AddModelError(MessageConstants.NoAccountWithCurrentToken)
+          .AddModelError(Messages.NoAccountWithCurrentToken)
           .UnprocessableModelResult();
 
       var botInfo = await new TelegramBotClient(account.TelegramToken).GetBotInfo();

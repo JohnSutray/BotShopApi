@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using ImportShopCore.Models.Telegram;
 using ImportShopApi.Constants;
 using ImportShopApi.Extensions.Common;
 using ImportShopApi.Models;

@@ -1,33 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ImportShopCore;
-using ImportShopCore.Extensions.Common;
-using ImportShopCore.Models;
-using ImportShopCore.Models.Account;
-using ImportShopCore.Models.Product;
-using ImportShopApi.Extensions.Common;
 using ImportShopApi.Extensions.Product;
-using ImportShopApi.Models;
+using ImportShopCore;
+using ImportShopCore.Attributes;
+using ImportShopCore.Models;
+using ImportShopCore.Models.Dto;
+using ImportShopCore.Models.Entities;
 
 namespace ImportShopApi.Services {
+  [Service]
   public class ProductService : RepositoryService<Product> {
     private MediaStorageService MediaStorageService { get; }
 
     public ProductService(
       ApplicationContext applicationContext,
       MediaStorageService mediaStorageService
-    ) : base(applicationContext, context => context.Products) {
+    ) : base(applicationContext, context => context.Products) =>
       MediaStorageService = mediaStorageService;
-    }
 
     public async Task<bool> CheckIsProductExistsAsync(int productId) =>
       await ByIdAsync(productId) != null;
 
     public async Task<bool> CheckIsValidNameAsync(string name, int accountId) {
       var commonProducts = await ByPatternManyAsync(product => product.AccountId == accountId && product.Name == name);
-
-      return commonProducts.Any();
+      
+      return commonProducts.Count == 0;
     }
 
     public async Task CreateAsync(CreateProductDto productDto, int accountId) =>
@@ -79,11 +78,17 @@ namespace ImportShopApi.Services {
 
     public async Task<PaginateResult<Product>> PaginateAsync(
       int accountId, string category, string type, int page, int limit
-    ) => await PaginateByPatternAsync(
-      product => product.AccountId == accountId && product.Category == category && product.Type == type,
-      page,
-      limit
-    );
+    ) {
+      Console.WriteLine(category);
+      Console.WriteLine(type);
+      Console.WriteLine(accountId);
+      
+      return await PaginateByPatternAsync(
+        product => product.AccountId == accountId && product.Category == category && product.Type == type,
+        page,
+        limit
+      );
+    }
 
     public async Task<IEnumerable<Category>> GetCategoriesAsync(int accountId) {
       var products = await ByPatternManyAsync(

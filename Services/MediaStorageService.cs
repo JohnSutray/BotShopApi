@@ -7,9 +7,11 @@ using Amazon.S3;
 using Amazon.S3.Model;
 using ImportShopCore.Extensions.Media;
 using ImportShopApi.Extensions.Aws;
+using ImportShopCore.Attributes;
 using Microsoft.AspNetCore.Http;
 
 namespace ImportShopApi.Services {
+  [Service]
   public class MediaStorageService {
     private IAmazonS3 AmazonS3 { get; }
 
