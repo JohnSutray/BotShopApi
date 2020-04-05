@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Amazon.S3;
 using Amazon.S3.Model;
-using ImportShopCore.Extensions.Media;
 using ImportShopApi.Extensions.Aws;
 using ImportShopCore.Attributes;
+using ImportShopCore.Extensions.Media;
 using Microsoft.AspNetCore.Http;
 
 namespace ImportShopApi.Services {

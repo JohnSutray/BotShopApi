@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using ImportShopCore.Models.Account;
 using ImportShopApi.Constants;
 using ImportShopApi.Extensions;
 using ImportShopApi.Extensions.Authentication;
+using ImportShopApi.Models.Dto.Auth;
 using ImportShopApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -24,10 +24,10 @@ namespace ImportShopApi.Controllers {
     }
 
     [HttpPost]
-    public async Task<IActionResult> SignIn(AccountLogin accountLogin) {
+    public async Task<ActionResult<AuthResultDto>> GetToken(AuthDto authDto) {
       if (!ModelState.IsValid) return this.UnprocessableModelResult();
 
-      var account = await AccountService.ByToken(accountLogin.TelegramToken);
+      var account = await AccountService.ByToken(authDto.TelegramToken);
 
       if (account == null)
         return this
@@ -36,11 +36,11 @@ namespace ImportShopApi.Controllers {
 
       var botInfo = await new TelegramBotClient(account.TelegramToken).GetBotInfo();
 
-      return Ok(new {
+      return new AuthResultDto {
         Token = account.Id.CreateJwt(Configuration),
         Name = botInfo.Name,
         Avatar = botInfo.Avatar
-      });
+      };
     }
   }
 }

@@ -1,7 +1,6 @@
 ﻿using Amazon;
 using Amazon.Extensions.NETCore.Setup;
 using Amazon.Runtime;
-using ImportShopApi.Extensions.Common;
 using ImportShopCore.Extensions.Common;
 using Microsoft.Extensions.Configuration;
 

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using ImportShopCore.Extensions;
-using ImportShopApi.Extensions.Common;
 using Microsoft.Extensions.Configuration;
 
 namespace ImportShopApi.Extensions.Authentication {

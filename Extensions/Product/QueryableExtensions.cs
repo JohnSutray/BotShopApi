@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ImportShopCore.Extensions.Common;
-using ImportShopApi.Extensions.Common;
 using ImportShopCore.Models;
 
 namespace ImportShopApi.Extensions.Product {
@@ -19,6 +18,7 @@ namespace ImportShopApi.Extensions.Product {
       Name = category,
       Types = products.Where(p => p.Category == category)
         .GetGroups(p => p.Type)
+        .ToList()
     };
   }
 }

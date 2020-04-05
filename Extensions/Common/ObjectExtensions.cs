@@ -34,6 +34,6 @@ namespace ImportShopApi.Extensions.Common {
     public static object ToDto(this object value, string excludeProperty) =>
       value.ToDto(excludeProperty.WrapIntoEnumerable());
 
-    private static string ToSnakeCase(this string str) => str.First().ToString().ToLower() + str.Substring(1);
+    public static string ToSnakeCase(this string str) => str.First().ToString().ToLower() + str.Substring(1);
   }
 }

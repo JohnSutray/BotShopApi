@@ -6,8 +6,11 @@ using ImportShopApi.Extensions.Swagger;
 using ImportShopCore;
 using ImportShopCore.Extensions;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace ImportShopApi {
   public class Startup {
@@ -25,15 +28,21 @@ namespace ImportShopApi {
       .AddCors()
       .AddJwtAuthentication(Configuration);
 
+    public void Configure(IApplicationBuilder application, IWebHostEnvironment environment) {
+      if (environment.IsProduction()) application.UseHsts();
 
-    public void Configure(IApplicationBuilder application) => application
-      .UseSwaggerUIAndApi()
-      .UseCorsAllowingAnyRequest()
-      .UseDeveloperExceptionPage()
-      .UseJsonExceptionHandler()
-      .UseRouting()
-      .UseAuthentication()
-      .UseAuthorization()
-      .UseEndpoints(e => e.MapControllers());
+      application
+        .UseSwaggerUIAndApi()
+        .UseCorsAllowingAnyRequest()
+        .UseJsonExceptionHandler()
+        .UseRouting()
+        .UseAuthentication()
+        .UseAuthorization()
+        .UseHttpsRedirection()
+        .UseForwardedHeaders(new ForwardedHeadersOptions {
+          ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+        })
+        .UseEndpoints(e => e.MapControllers());
+    }
   }
 }

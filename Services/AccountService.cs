@@ -2,7 +2,6 @@
 using ImportShopCore;
 using ImportShopCore.Attributes;
 using ImportShopCore.Models;
-using ImportShopCore.Models.Account;
 using ImportShopCore.Models.Entities;
 
 namespace ImportShopApi.Services {

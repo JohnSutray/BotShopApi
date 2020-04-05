@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ImportShopApi.Extensions.Product;
+using ImportShopApi.Models.Dto.Product;
 using ImportShopCore;
 using ImportShopCore.Attributes;
 using ImportShopCore.Models;
-using ImportShopCore.Models.Dto;
 using ImportShopCore.Models.Entities;
 
 namespace ImportShopApi.Services {
@@ -25,11 +24,11 @@ namespace ImportShopApi.Services {
 
     public async Task<bool> CheckIsValidNameAsync(string name, int accountId) {
       var commonProducts = await ByPatternManyAsync(product => product.AccountId == accountId && product.Name == name);
-      
+
       return commonProducts.Count == 0;
     }
 
-    public async Task CreateAsync(CreateProductDto productDto, int accountId) =>
+    public async Task<Product> CreateAsync(CreateProductDto productDto, int accountId) =>
       await AddEntityAsync(
         new Product {
           Name = productDto.Name,
@@ -42,14 +41,14 @@ namespace ImportShopApi.Services {
         }
       );
 
-    public async Task RemoveProductAsync(int id) {
+    public async Task RemoveAsync(int id) {
       var product = await ByIdAsync(id);
 
       await MediaStorageService.RemoveMedia(product.MediaUrl);
       await RemoveByIdAsync(product.Id);
     }
 
-    public async Task UpdateAsync(int id, int accountId, UpdateProductDto updateProductDto) {
+    public async Task<Product> UpdateAsync(int id, int accountId, UpdateProductDto updateProductDto) {
       var productToUpdate = await ByIdAsync(id);
 
       productToUpdate.Name = updateProductDto.Name ?? productToUpdate.Name;
@@ -64,6 +63,8 @@ namespace ImportShopApi.Services {
       }
 
       await SaveChangesAsync();
+
+      return productToUpdate;
     }
 
     public async Task RemoveAllProductsAsync(int accountId) {
@@ -76,13 +77,9 @@ namespace ImportShopApi.Services {
       await MediaStorageService.RemoveManyMedia(mediaS3Keys);
     }
 
-    public async Task<PaginateResult<Product>> PaginateAsync(
+    public async Task<PaginationResult<Product>> PaginateAsync(
       int accountId, string category, string type, int page, int limit
     ) {
-      Console.WriteLine(category);
-      Console.WriteLine(type);
-      Console.WriteLine(accountId);
-      
       return await PaginateByPatternAsync(
         product => product.AccountId == accountId && product.Category == category && product.Type == type,
         page,

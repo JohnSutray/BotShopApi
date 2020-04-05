@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using ImportShopCore.Models.Account;
 using ImportShopApi.Extensions;
 using ImportShopApi.Extensions.Authentication;
 using ImportShopApi.Extensions.TelegramApi;
+using ImportShopApi.Models.Dto.Auth;
 using ImportShopApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -42,7 +42,7 @@ namespace ImportShopApi.Controllers {
 
 
     [HttpDelete]
-    public async Task<ActionResult> RemoveAccount() {
+    public async Task<ActionResult> DeleteAccount() {
       await ProductService.RemoveAllProductsAsync(User.GetUserId());
       await AccountService.RemoveAccount(User.GetUserId());
 

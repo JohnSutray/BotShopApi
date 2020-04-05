@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ImportShopApi.Constants;
 using ImportShopApi.Extensions;
 using ImportShopApi.Extensions.Authentication;
+using ImportShopApi.Extensions.Dto;
+using ImportShopApi.Models.Dto.Product;
 using ImportShopApi.Services;
+using ImportShopCore.Extensions;
 using ImportShopCore.Models;
-using ImportShopCore.Models.Dto;
-using ImportShopCore.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace ImportShopApi.Controllers {
   [Authorize]
@@ -22,8 +23,7 @@ namespace ImportShopApi.Controllers {
     public ProductController(ProductService productService) => ProductService = productService;
 
     [HttpPut]
-    [SwaggerOperation(OperationId = "createProduct")]
-    public async Task<ActionResult> Create([FromForm] CreateProductDto productDto) {
+    public async Task<ActionResult<ProductDto>> CreateProduct([FromForm] CreateProductDto productDto) {
       if (!ModelState.IsValid) {
         return this.UnprocessableModelResult();
       }
@@ -33,15 +33,14 @@ namespace ImportShopApi.Controllers {
           .UnprocessableModelResult();
       }
 
-      await ProductService.CreateAsync(productDto, User.GetUserId());
+      var createdProduct = await ProductService.CreateAsync(productDto, User.GetUserId());
 
-      return Ok();
+      return Ok(createdProduct);
     }
 
     [HttpPost("{id}")]
-    [SwaggerOperation(OperationId = "updateProduct")]
-    public async Task<ActionResult> UpdateProduct(int id, [FromForm] UpdateProductDto updateProductDto) {
-      if (!await ProductService.CheckIsProductExistsAsync(id)) {
+    public async Task<ActionResult<ProductDto>> UpdateProduct(string id, [FromForm] UpdateProductDto updateProductDto) {
+      if (!await ProductService.CheckIsProductExistsAsync(id.ParseInt())) {
         return this.AddModelError(Messages.ProductWithSelectedIdNotExists).UnprocessableModelResult();
       }
 
@@ -49,33 +48,42 @@ namespace ImportShopApi.Controllers {
         return this.UnprocessableModelResult();
       }
 
-      await ProductService.UpdateAsync(id, User.GetUserId(), updateProductDto);
+      var updatedProduct = await ProductService.UpdateAsync(id.ParseInt(), User.GetUserId(), updateProductDto);
 
-      return Ok();
+      return Ok(updatedProduct);
     }
 
     [HttpDelete("{id}")]
-    [SwaggerOperation(OperationId = "removeProduct")]
-    public async Task<ActionResult> Delete(int id) {
-      if (!await ProductService.CheckIsProductExistsAsync(id)) {
+    public async Task<ActionResult> DeleteProduct(string id) {
+      if (!await ProductService.CheckIsProductExistsAsync(id.ParseInt())) {
         return this.AddModelError(Messages.ProductWithSelectedIdNotExists).UnprocessableModelResult();
       }
 
-      await ProductService.RemoveProductAsync(id);
+      await ProductService.RemoveAsync(id.ParseInt());
 
       return Ok();
     }
 
     [HttpGet("{category}/{type}/{page}/{limit}")]
-    [SwaggerOperation(OperationId = "getProducts")]
-    public async Task<PaginateResult<Product>> GetProducts(
+    public async Task<PaginationResult<ProductDto>> GetProducts(
       string category, string type, int page, int limit
-    ) => await ProductService.PaginateAsync(User.GetUserId(), category, type, page, limit);
+    ) {
+      var productPage = await ProductService.PaginateAsync(User.GetUserId(), category, type, page, limit);
+
+      return new PaginationResult<ProductDto> {
+        Items = productPage.Items.Select(ProductDtoExtensions.ToDto).ToList(),
+        Limit = productPage.Limit,
+        Page = productPage.Page,
+        TotalPages = productPage.TotalPages
+      };
+    }
 
 
     [HttpGet("category")]
-    [SwaggerOperation(OperationId = "getProductCategories")]
-    public async Task<IEnumerable<Category>> GetCategories() =>
-      await ProductService.GetCategoriesAsync(AccountId);
+    public async Task<IEnumerable<CategoryDto>> GetCategories() {
+      var categories = await ProductService.GetCategoriesAsync(AccountId);
+
+      return categories.Select(CategoryDtoExtensions.ToDto);
+    }
   }
 }
