@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using ImportShopApi.Extensions.Configuration;
 using ImportShopCore.Extensions;
 using Microsoft.Extensions.Configuration;
 
-namespace ImportShopApi.Extensions.Authentication {
+namespace ImportShopApi.Extensions {
   public static class IntExtensions {
     public static string CreateJwt(
       this int accountId,

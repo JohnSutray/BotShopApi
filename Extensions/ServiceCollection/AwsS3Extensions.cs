@@ -1,10 +1,11 @@
 ﻿using Amazon.S3;
+using ImportShopApi.Extensions.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ImportShopApi.Extensions.Aws {
-  public static class ServiceCollectionExtensions {
-    public static IServiceCollection AddAwsS3(
+namespace ImportShopApi.Extensions.ServiceCollection {
+  public static partial class ServiceCollectionExtensions {
+    public static IServiceCollection AddAwsS3Services(
       this IServiceCollection services,
       IConfiguration configuration
     ) => services

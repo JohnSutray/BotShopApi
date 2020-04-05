@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using ImportShopApi.Extensions.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ImportShopApi.Extensions.Authentication {
-  public static class ServiceCollectionExtensions {
+namespace ImportShopApi.Extensions.ServiceCollection {
+  public static partial class ServiceCollectionExtensions {
     public static void AddJwtAuthentication(
       this IServiceCollection services,
       IConfiguration configuration

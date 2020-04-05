@@ -4,8 +4,8 @@ using Amazon.Runtime;
 using ImportShopCore.Extensions.Common;
 using Microsoft.Extensions.Configuration;
 
-namespace ImportShopApi.Extensions.Aws {
-  public static class ConfigurationExtensions {
+namespace ImportShopApi.Extensions.Configuration {
+  public static partial class ConfigurationExtensions {
     private static IConfigurationSection GetAwsSection(this IConfiguration configuration)
       => configuration.GetSectionByName("AWS");
 

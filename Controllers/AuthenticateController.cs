@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using ImportShopApi.Constants;
 using ImportShopApi.Extensions;
-using ImportShopApi.Extensions.Authentication;
 using ImportShopApi.Models.Dto.Auth;
 using ImportShopApi.Services;
 using Microsoft.AspNetCore.Mvc;

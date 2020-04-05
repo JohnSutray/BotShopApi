@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Amazon.S3;
 using Amazon.S3.Model;
-using ImportShopApi.Extensions.Aws;
+using ImportShopApi.Extensions.String;
 using ImportShopCore.Attributes;
 using ImportShopCore.Extensions.Media;
 using Microsoft.AspNetCore.Http;

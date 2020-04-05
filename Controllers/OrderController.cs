@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using ImportShopApi.Extensions.Authentication;
+using ImportShopApi.Extensions;
 using ImportShopApi.Models.Dto.Order;
 using ImportShopApi.Services;
 using ImportShopCore.Models;
@@ -21,6 +21,8 @@ namespace ImportShopApi.Controllers {
 
     [AllowAnonymous]
     [HttpGet]
-    public string Test() => "test";
+    public string Test() {
+      return "test";
+    }
   }
 }

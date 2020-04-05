@@ -1,8 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ImportShopApi.Constants;
-using ImportShopApi.Extensions.Common;
 using ImportShopApi.Models;
 using Telegram.Bot;
 
@@ -36,6 +36,10 @@ namespace ImportShopApi.Extensions {
       await client.DownloadFileAsync(photoTelegramFile.FilePath, photoFileStream);
 
       return photoFileStream.ToBase64(EncodingConstants.ImageBase64Prefix);
+    }
+
+    public static string ToBase64(this MemoryStream stream, string dataTypePrefix) {
+      return dataTypePrefix + Convert.ToBase64String(stream.ToArray());
     }
   }
 }

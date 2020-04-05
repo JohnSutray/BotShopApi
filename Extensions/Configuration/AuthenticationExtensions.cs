@@ -1,11 +1,12 @@
 ﻿using System;
+using ImportShopApi.Extensions.String;
 using ImportShopCore.Extensions;
 using ImportShopCore.Extensions.Common;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ImportShopApi.Extensions.Authentication {
-  public static class ConfigurationExtensions {
+namespace ImportShopApi.Extensions.Configuration {
+  public static partial class ConfigurationExtensions {
     private static IConfigurationSection GetAuthorizeSection(this IConfiguration configuration) =>
       configuration.GetSectionByName("Authorization");
 

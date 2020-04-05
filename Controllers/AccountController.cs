@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using ImportShopApi.Extensions;
-using ImportShopApi.Extensions.Authentication;
-using ImportShopApi.Extensions.TelegramApi;
+using ImportShopApi.Extensions.String;
 using ImportShopApi.Models.Dto.Auth;
 using ImportShopApi.Services;
 using Microsoft.AspNetCore.Authorization;

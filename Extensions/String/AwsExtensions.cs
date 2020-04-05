@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace ImportShopApi.Extensions.Aws {
-  public static class StringExtensions {
+namespace ImportShopApi.Extensions.String {
+  public static partial class StringExtensions {
     public static string UrlWithoutQueryParams(this string url) => url.Substring(
       0, url.IndexOf("?", StringComparison.Ordinal)
     );

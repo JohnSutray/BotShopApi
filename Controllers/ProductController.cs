@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using ImportShopApi.Constants;
 using ImportShopApi.Extensions;
-using ImportShopApi.Extensions.Authentication;
 using ImportShopApi.Extensions.Dto;
 using ImportShopApi.Models.Dto.Product;
 using ImportShopApi.Services;
