@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using ImportShopApi.Constants;
 using ImportShopApi.Extensions;
 using ImportShopApi.Extensions.String;
 using ImportShopApi.Models.Dto.Auth;
@@ -29,10 +30,12 @@ namespace ImportShopApi.Controllers {
         return this.UnprocessableModelResult();
 
       if (!await createAccountDto.TelegramToken.CheckTokenIsValidAsync())
-        return this.AddModelError("Неверный токен").UnprocessableModelResult();
+        return this.AddModelError(Messages.InvalidToken)
+          .UnprocessableModelResult();
 
       if (await AccountService.CheckIsAccountExistsAsync(createAccountDto.TelegramToken))
-        return this.AddModelError("Аккаунт с данным токеном уже существует").UnprocessableModelResult();
+        return this.AddModelError(Messages.AccountWithCurrentTokenExists)
+          .UnprocessableModelResult();
 
       await AccountService.CreateAccount(createAccountDto.TelegramToken);
 

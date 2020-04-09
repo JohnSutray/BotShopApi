@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using ImportShopApi.Constants;
 using ImportShopApi.Extensions;
 using ImportShopApi.Models.Dto.Order;
 using ImportShopApi.Services;
@@ -18,6 +19,17 @@ namespace ImportShopApi.Controllers {
     [HttpGet("{page}/{limit}")]
     public async Task<PaginationResult<OrderDto>> GetOrders(int page, int limit)
       => await OrderService.Paginate(User.GetUserId(), page, limit);
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteOrder(int id) {
+      if (!await OrderService.ValidateOrderId(id))
+        return this.AddModelError(Messages.OrderWithSelectedIdNotExists)
+          .UnprocessableModelResult();
+
+      await OrderService.RemoveOrder(id);
+
+      return Ok();
+    }
 
     [AllowAnonymous]
     [HttpGet]

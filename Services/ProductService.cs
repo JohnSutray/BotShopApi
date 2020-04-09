@@ -68,13 +68,11 @@ namespace ImportShopApi.Services {
     }
 
     public async Task RemoveAllProductsAsync(int accountId) {
-      var removedProducts = await RemoveManyByPatternAsync(
-        product => product.AccountId == accountId
-      );
+      var removedProducts = await RemoveManyByPatternAsync(p => p.AccountId == accountId);
 
-      string SelectMediaUrl(Product product) => product.MediaUrl;
-      var mediaS3Keys = removedProducts.Select(SelectMediaUrl).ToList();
-      await MediaStorageService.RemoveManyMedia(mediaS3Keys);
+      await MediaStorageService.RemoveManyMedia(
+        removedProducts.Select(p => p.MediaUrl)
+      );
     }
 
     public async Task<PaginationResult<Product>> PaginateAsync(

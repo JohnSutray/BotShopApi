@@ -40,6 +40,10 @@ namespace ImportShopApi.Services {
       };
     }
 
+    public async Task RemoveOrder(int orderId) => await RemoveByIdAsync(orderId);
+
+    public async Task<bool> ValidateOrderId(int orderId) => await ByIdAsync(orderId) != null;
+
     private IQueryable<Order> FullyIncludeOrder(IQueryable<Order> query) =>
       query.Include(order => order.Chat)
         .Include(order => order.OrderItems)
