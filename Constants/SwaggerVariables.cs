@@ -10,10 +10,6 @@ namespace ImportShopApi.Constants {
 
     public static string SwaggerJsonEndpoint => $"/swagger/{Version}/swagger.json";
 
-    public static string PathToSwaggerXml => Path.Combine(AppContext.BaseDirectory, SwaggerXmlFileName);
-
     public static readonly OpenApiInfo OpenApiInfo = new OpenApiInfo {Title = ApiName, Version = Version};
-
-    private static string SwaggerXmlFileName => $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
   }
 }

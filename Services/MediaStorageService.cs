@@ -15,9 +15,7 @@ namespace ImportShopApi.Services {
   public class MediaStorageService {
     private IAmazonS3 AmazonS3 { get; }
 
-    public MediaStorageService(IAmazonS3 amazonS3) {
-      AmazonS3 = amazonS3;
-    }
+    public MediaStorageService(IAmazonS3 amazonS3) => AmazonS3 = amazonS3;
 
     private string CreateGuid() => Guid.NewGuid().ToString();
 
