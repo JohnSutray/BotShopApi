@@ -50,5 +50,9 @@ namespace BotShopApi.Controllers {
 
       return Ok();
     }
+
+    [Route("test")]
+    [HttpGet]
+    public string Test() => "test-endpoint";
   }
 }

@@ -11,4 +11,4 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 WORKDIR /app
 COPY --from=builder /app .
 
-CMD ["dotnet", "AmoLeadManagementApi.dll"]
+CMD ["dotnet", "BotShopApi.dll"]
