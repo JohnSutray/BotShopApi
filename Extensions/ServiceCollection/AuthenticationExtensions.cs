@@ -1,16 +1,13 @@
-﻿using ImportShopApi.Extensions.Configuration;
+﻿using BotShopApi.Constants;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ImportShopApi.Extensions.ServiceCollection {
+namespace BotShopApi.Extensions.ServiceCollection {
   public static partial class ServiceCollectionExtensions {
-    public static void AddJwtAuthentication(
-      this IServiceCollection services,
-      IConfiguration configuration
-    ) => services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
-      options.RequireHttpsMetadata = false;
-      options.TokenValidationParameters = configuration.GetTokenValidationParameters();
-    });
+    public static void AddJwtAuthentication(this IServiceCollection services) =>
+      services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters = EnvironmentConstants.TokenValidationParameters;
+      });
   }
 }

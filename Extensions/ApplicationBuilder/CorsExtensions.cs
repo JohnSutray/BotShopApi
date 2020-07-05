@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 
-namespace ImportShopApi.Extensions.ApplicationBuilder {
+namespace BotShopApi.Extensions.ApplicationBuilder {
   public static partial class ApplicationBuilderExtensions {
     private static void ConfigureCors(CorsPolicyBuilder builder) => builder
       .AllowAnyOrigin()

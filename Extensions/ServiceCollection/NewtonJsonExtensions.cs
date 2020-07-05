@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
-namespace ImportShopApi.Extensions.ServiceCollection {
+namespace BotShopApi.Extensions.ServiceCollection {
   public static partial class ServiceCollectionExtensions {
     public static IServiceCollection AddNewtonJsonServices(this IMvcBuilder builder)
       => builder.AddNewtonsoftJson(ConfigureJson).Services;

@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
-using ImportShopApi.Constants;
-using ImportShopApi.Extensions;
-using ImportShopApi.Extensions.String;
-using ImportShopApi.Models.Dto.Auth;
-using ImportShopApi.Services;
+using BotShopApi.Constants;
+using BotShopApi.Models.Dto.Auth;
+using BotShopApi.Services;
+using BotShopApi.Extensions;
+using BotShopApi.Extensions.String;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ImportShopApi.Controllers {
+namespace BotShopApi.Controllers {
   [Authorize]
   [ApiController]
   [Route("account")]

@@ -1,14 +1,14 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using ImportShopApi.Extensions.Dto;
-using ImportShopApi.Models.Dto.Order;
-using ImportShopCore;
-using ImportShopCore.Attributes;
-using ImportShopCore.Models;
-using ImportShopCore.Models.Entities;
+using BotShopApi.Extensions.Dto;
+using BotShopApi.Models.Dto.Order;
+using BotShopCore;
+using BotShopCore.Attributes;
+using BotShopCore.Models;
+using BotShopCore.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace ImportShopApi.Services {
+namespace BotShopApi.Services {
   [Service]
   public class OrderService : RepositoryService<Order> {
     private ProductService ProductService { get; }
@@ -18,7 +18,7 @@ namespace ImportShopApi.Services {
       ApplicationContext context,
       ProductService productService,
       OrderItemService orderItemService
-    ) : base(context, c => c.Orders) {
+    ) : base(context) {
       ProductService = productService;
       OrderItemService = orderItemService;
     }
@@ -48,5 +48,7 @@ namespace ImportShopApi.Services {
       query.Include(order => order.Chat)
         .Include(order => order.OrderItems)
         .ThenInclude(item => item.Product);
+
+    protected override DbSet<Order> Set => Context.Orders;
   }
 }

@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace ImportShopApi.Extensions {
+namespace BotShopApi.Extensions {
   public static class ModelStateDictionaryExtensions {
     public static IEnumerable<string> GetErrors(this ModelStateDictionary modelStateDictionary) => modelStateDictionary
       .Values

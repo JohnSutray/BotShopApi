@@ -1,4 +1,4 @@
-﻿namespace ImportShopApi.Constants {
+﻿namespace BotShopApi.Constants {
   public static class Messages {
     public const string NoAccountWithCurrentToken = "Аккаунт с таким токеном не существует.";
     public const string AccountWithCurrentTokenExists = "Аккаунт с таким токеном уже существует.";

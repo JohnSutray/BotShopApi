@@ -1,25 +1,24 @@
 ﻿using System.Threading.Tasks;
-using ImportShopApi.Constants;
-using ImportShopApi.Extensions;
-using ImportShopApi.Models.Dto.Auth;
-using ImportShopApi.Services;
+using BotShopApi.Constants;
+using BotShopApi.Models.Dto.Auth;
+using BotShopApi.Services;
+using BotShopApi.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Telegram.Bot;
 
-namespace ImportShopApi.Controllers {
+namespace BotShopApi.Controllers {
   [ApiController]
   [Route("auth")]
   public class AuthenticateController : Controller {
     private AccountService AccountService { get; }
-    private IConfiguration Configuration { get; }
+    private JwtService JwtService { get; }
 
     public AuthenticateController(
       AccountService accountService,
-      IConfiguration configuration
+      JwtService jwtService
     ) {
       AccountService = accountService;
-      Configuration = configuration;
+      JwtService = jwtService;
     }
 
     [HttpPost]
@@ -36,7 +35,7 @@ namespace ImportShopApi.Controllers {
       var botInfo = await new TelegramBotClient(account.TelegramToken).GetBotInfo();
 
       return new AuthResultDto {
-        Token = account.Id.CreateJwt(Configuration),
+        Token = JwtService.CreateJwt(account.Id),
         Name = botInfo.Name,
         Avatar = botInfo.Avatar
       };

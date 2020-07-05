@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
-using ImportShopApi.Constants;
-using ImportShopApi.Extensions;
-using ImportShopApi.Models.Dto.Order;
-using ImportShopApi.Services;
-using ImportShopCore.Models;
+using BotShopApi.Constants;
+using BotShopApi.Models.Dto.Order;
+using BotShopApi.Services;
+using BotShopApi.Extensions;
+using BotShopCore.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ImportShopApi.Controllers {
+namespace BotShopApi.Controllers {
   [Authorize]
   [ApiController]
   [Route("order")]

@@ -1,12 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
 
-namespace ImportShopApi.Constants {
+namespace BotShopApi.Constants {
   public static class SwaggerVariables {
     public const string Version = "v1";
-    public const string ApiName = "Import Shop Api";
+    public const string ApiName = "Bot Shop Api";
 
     public static string SwaggerJsonEndpoint => $"/swagger/{Version}/swagger.json";
 

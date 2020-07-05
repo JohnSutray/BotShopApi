@@ -2,13 +2,14 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <RootNamespace>ImportShopApi</RootNamespace>
+        <RootNamespace>BotShopApi</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="AWSSDK.Core" Version="3.3.104.12" />
         <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.100.1" />
         <PackageReference Include="AWSSDK.S3" Version="3.3.110.8" />
+        <PackageReference Include="BotShopCore" Version="1.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
@@ -17,19 +18,6 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.2.0" />
         <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.0.0" />
         <PackageReference Include="Telegram.Bot" Version="15.3.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <_ContentIncludedByDefault Remove="ImportShopBot\obj\ImportShopBot.csproj.nuget.dgspec.json" />
-        <_ContentIncludedByDefault Remove="ImportShopBot\obj\project.assets.json" />
-        <_ContentIncludedByDefault Remove="ImportShopBot\obj\project.packagespec.json" />
-        <_ContentIncludedByDefault Remove="ApplicationContext\obj\ApplicationContext.csproj.nuget.dgspec.json" />
-        <_ContentIncludedByDefault Remove="ApplicationContext\obj\project.assets.json" />
-        <_ContentIncludedByDefault Remove="ApplicationContext\obj\project.packagespec.json" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\ImportShopCore\ImportShopCore.csproj" />
     </ItemGroup>
 
     <PropertyGroup>

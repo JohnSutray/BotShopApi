@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ImportShopApi.Constants;
-using ImportShopApi.Extensions;
-using ImportShopApi.Extensions.Dto;
-using ImportShopApi.Models.Dto.Product;
-using ImportShopApi.Services;
-using ImportShopCore.Extensions;
-using ImportShopCore.Models;
+using BotShopApi.Constants;
+using BotShopApi.Extensions.Dto;
+using BotShopApi.Models.Dto.Product;
+using BotShopApi.Services;
+using BotShopApi.Extensions;
+using BotShopCore.Extensions;
+using BotShopCore.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ImportShopApi.Controllers {
+namespace BotShopApi.Controllers {
   [Authorize]
   [ApiController]
   [Route("product")]

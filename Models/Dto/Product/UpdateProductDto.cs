@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 
-namespace ImportShopApi.Models.Dto.Product {
+namespace BotShopApi.Models.Dto.Product {
   public class UpdateProductDto {
     [Range(float.MinValue, float.MaxValue)]
     public float? Price { get; set; }

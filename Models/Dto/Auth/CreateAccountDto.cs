@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ImportShopApi.Models.Dto.Auth {
+namespace BotShopApi.Models.Dto.Auth {
   public class CreateAccountDto {
     [Required]
     [MinLength(46)]

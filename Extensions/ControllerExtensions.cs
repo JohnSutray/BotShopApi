@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace ImportShopApi.Extensions {
+namespace BotShopApi.Extensions {
   public static class ControllerExtensions {
     public static ActionResult UnprocessableModelResult<T>(this T controller) where T : Controller
       => controller.UnprocessableEntity(controller.ModelState.GetErrors());

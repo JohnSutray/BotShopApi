@@ -2,11 +2,11 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using ImportShopApi.Constants;
-using ImportShopApi.Models;
+using BotShopApi.Constants;
+using BotShopApi.Models;
 using Telegram.Bot;
 
-namespace ImportShopApi.Extensions {
+namespace BotShopApi.Extensions {
   public static class TelegramBotClientExtensions {
     public static async Task<TmBotInfo> GetBotInfo(this TelegramBotClient client) {
       try {

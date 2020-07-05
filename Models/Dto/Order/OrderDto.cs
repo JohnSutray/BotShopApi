@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ImportShopApi.Models.Dto.Order {
+namespace BotShopApi.Models.Dto.Order {
   public class OrderDto {
     [Required] public string Id { get; set; }
     [Required] public DateTime CreatedAt { get; set; }

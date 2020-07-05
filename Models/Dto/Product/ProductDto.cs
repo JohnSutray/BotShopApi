@@ -1,4 +1,4 @@
-﻿namespace ImportShopApi.Models.Dto.Product {
+﻿namespace BotShopApi.Models.Dto.Product {
   public class ProductDto {
     public string Id { get; set; }
     public string Name { get; set; }

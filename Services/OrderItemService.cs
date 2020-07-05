@@ -1,16 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using ImportShopCore;
-using ImportShopCore.Attributes;
-using ImportShopCore.Models;
-using ImportShopCore.Models.Entities;
+using BotShopCore;
+using BotShopCore.Attributes;
+using BotShopCore.Models;
+using BotShopCore.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace ImportShopApi.Services {
+namespace BotShopApi.Services {
   [Service]
   public class OrderItemService : RepositoryService<OrderItem> {
-    public OrderItemService(ApplicationContext context) : base(context, c => c.OrderItems) { }
+    public OrderItemService(ApplicationContext context) : base(context) { }
 
     public async Task<List<OrderItem>> GetOrderItems(int orderId) =>
       await ByPatternManyAsync(item => item.OrderId == orderId, item => item.Product);
+
+    protected override DbSet<OrderItem> Set => Context.OrderItems;
   }
 }

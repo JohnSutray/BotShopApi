@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ImportShopApi.Extensions.Product;
-using ImportShopApi.Models.Dto.Product;
-using ImportShopCore;
-using ImportShopCore.Attributes;
-using ImportShopCore.Models;
-using ImportShopCore.Models.Entities;
+using BotShopApi.Models.Dto.Product;
+using BotShopApi.Extensions.Product;
+using BotShopCore;
+using BotShopCore.Attributes;
+using BotShopCore.Models;
+using BotShopCore.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace ImportShopApi.Services {
+namespace BotShopApi.Services {
   [Service]
   public class ProductService : RepositoryService<Product> {
     private MediaStorageService MediaStorageService { get; }
@@ -16,7 +17,7 @@ namespace ImportShopApi.Services {
     public ProductService(
       ApplicationContext applicationContext,
       MediaStorageService mediaStorageService
-    ) : base(applicationContext, context => context.Products) =>
+    ) : base(applicationContext) =>
       MediaStorageService = mediaStorageService;
 
     public async Task<bool> CheckIsProductExistsAsync(int productId) =>
@@ -92,5 +93,7 @@ namespace ImportShopApi.Services {
 
       return products.GetCategories();
     }
+
+    protected override DbSet<Product> Set => Context.Products;
   }
 }

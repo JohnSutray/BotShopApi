@@ -1,7 +1,7 @@
-﻿using ImportShopApi.Constants;
+﻿using BotShopApi.Constants;
 using Microsoft.AspNetCore.Builder;
 
-namespace ImportShopApi.Extensions.ApplicationBuilder {
+namespace BotShopApi.Extensions.ApplicationBuilder {
   public static partial class ApplicationBuilderExtensions {
     public static IApplicationBuilder UseSwaggerOption(
       this IApplicationBuilder application

@@ -5,25 +5,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Amazon.S3;
 using Amazon.S3.Model;
-using ImportShopApi.Extensions.String;
-using ImportShopCore.Attributes;
-using ImportShopCore.Extensions.Media;
+using BotShopApi.Constants;
+using BotShopApi.Extensions.String;
+using BotShopCore.Attributes;
+using BotShopCore.Extensions.Media;
 using Microsoft.AspNetCore.Http;
 
-namespace ImportShopApi.Services {
+namespace BotShopApi.Services {
   [Service]
   public class MediaStorageService {
     private IAmazonS3 AmazonS3 { get; }
 
     public MediaStorageService(IAmazonS3 amazonS3) => AmazonS3 = amazonS3;
 
-    private string CreateGuid() => Guid.NewGuid().ToString();
-
-    private string BucketName => "import-shop-bot-dev";
+    private string BucketName => EnvironmentConstants.AwsBucketName;
 
     public async Task<string> UploadMedia(IFormFile file, int ownerId) {
       var putObjectRequest = new PutObjectRequest {
-        Key = $"{ownerId}/{CreateGuid()}{Path.GetExtension(file.FileName)}",
+        Key = $"{ownerId}/{Guid.NewGuid().ToString()}{Path.GetExtension(file.FileName)}",
         BucketName = BucketName,
         InputStream = file.OpenReadStream(),
         ContentType = file.FileName.GetContentType(),

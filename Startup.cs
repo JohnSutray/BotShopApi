@@ -1,29 +1,24 @@
-using ImportShopApi.Extensions.ApplicationBuilder;
-using ImportShopApi.Extensions.ServiceCollection;
-using ImportShopCore;
-using ImportShopCore.Extensions;
+using BotShopApi.Extensions.ApplicationBuilder;
+using BotShopApi.Extensions.ServiceCollection;
+using BotShopCore;
+using BotShopCore.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ImportShopApi {
+namespace BotShopApi {
   public class Startup {
-    private IConfiguration Configuration { get; }
-
-    public Startup(IConfiguration configuration) => Configuration = configuration;
-
     public void ConfigureServices(IServiceCollection services) => services
       .AddSwaggerServices()
       .AddAssemblyServices(typeof(Startup).Assembly)
-      .AddAwsS3Services(Configuration)
+      .AddAwsS3Services()
       .AddDbContext<ApplicationContext>()
       .AddControllers()
       .AddNewtonJsonServices()
       .AddCors()
-      .AddJwtAuthentication(Configuration);
+      .AddJwtAuthentication();
 
-    public void Configure(IApplicationBuilder application) => application
+    public void Configure(IApplicationBuilder builder) => builder
       .UseForwardedHeaders(new ForwardedHeadersOptions {
         ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
       })

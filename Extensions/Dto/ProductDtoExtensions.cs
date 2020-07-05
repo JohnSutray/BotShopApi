@@ -1,8 +1,8 @@
-﻿using ImportShopApi.Models.Dto.Product;
+﻿using BotShopApi.Models.Dto.Product;
 
-namespace ImportShopApi.Extensions.Dto {
+namespace BotShopApi.Extensions.Dto {
   public static class ProductDtoExtensions {
-    public static ProductDto ToDto(this ImportShopCore.Models.Entities.Product product)
+    public static ProductDto ToDto(this BotShopCore.Models.Entities.Product product)
       => new ProductDto {
         Id = product.Id.ToString(),
         Category = product.Category,

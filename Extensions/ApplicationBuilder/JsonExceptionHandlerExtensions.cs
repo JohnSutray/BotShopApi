@@ -1,12 +1,12 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
-using ImportShopCore.Extensions;
+using BotShopCore.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace ImportShopApi.Extensions.ApplicationBuilder {
+namespace BotShopApi.Extensions.ApplicationBuilder {
   public static partial class ApplicationBuilderExtensions {
     public static IApplicationBuilder UseJsonExceptionHandlerOption(this IApplicationBuilder app) => app
       .UseExceptionHandler(applicationBuilder => applicationBuilder.Run(SerializeError));

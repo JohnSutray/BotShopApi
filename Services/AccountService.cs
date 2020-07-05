@@ -1,14 +1,15 @@
 ﻿using System.Threading.Tasks;
-using ImportShopCore;
-using ImportShopCore.Attributes;
-using ImportShopCore.Models;
-using ImportShopCore.Models.Entities;
+using BotShopCore;
+using BotShopCore.Attributes;
+using BotShopCore.Models;
+using BotShopCore.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace ImportShopApi.Services {
+namespace BotShopApi.Services {
   [Service]
   public class AccountService : RepositoryService<Account> {
     public AccountService(ApplicationContext applicationContext)
-      : base(applicationContext, context => context.Accounts) { }
+      : base(applicationContext) { }
 
     public async Task<bool> CheckIsAccountExistsAsync(string telegramToken) =>
       await ByToken(telegramToken) != null;
@@ -22,5 +23,6 @@ namespace ImportShopApi.Services {
     }
 
     public async Task RemoveAccount(int ownerId) => await RemoveByIdAsync(ownerId);
+    protected override DbSet<Account> Set => Context.Accounts;
   }
 }

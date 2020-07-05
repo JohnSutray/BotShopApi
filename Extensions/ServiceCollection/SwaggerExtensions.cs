@@ -1,10 +1,10 @@
 ﻿using System.Linq;
-using ImportShopApi.Constants;
+using BotShopApi.Constants;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace ImportShopApi.Extensions.ServiceCollection {
+namespace BotShopApi.Extensions.ServiceCollection {
   public static partial class ServiceCollectionExtensions {
     public static IServiceCollection AddSwaggerServices(this IServiceCollection services) =>
       services.AddSwaggerGen(ConfigureSwaggerGenerator);

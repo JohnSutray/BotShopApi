@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using ImportShopApi.Models.Dto.Order;
-using ImportShopCore.Models.Entities;
+using BotShopApi.Models.Dto.Order;
+using BotShopCore.Models.Entities;
 
-namespace ImportShopApi.Extensions.Dto {
+namespace BotShopApi.Extensions.Dto {
   public static class OrderDtoExtensions {
     public static OrderDto ToDto(this Order order) => new OrderDto {
       Id = order.Id.ToString(),

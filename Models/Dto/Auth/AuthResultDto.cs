@@ -1,4 +1,4 @@
-﻿namespace ImportShopApi.Models.Dto.Auth {
+﻿namespace BotShopApi.Models.Dto.Auth {
   public class AuthResultDto {
     public string Token { get; set; }
     public string Name { get; set; }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ImportShopApi.Models.Dto.Auth {
+namespace BotShopApi.Models.Dto.Auth {
   public class AuthDto {
     [Required]
     [StringLength(46, ErrorMessage = "Длина Telegram токена составляет 46 символов")]
